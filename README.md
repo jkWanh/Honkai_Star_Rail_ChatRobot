@@ -1,0 +1,2 @@
+# Honkai_Star_Rail_ChatRobot
+现在这个前端在载入前多了个三月七的动画。
