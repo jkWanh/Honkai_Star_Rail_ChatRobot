@@ -34,8 +34,8 @@ def json2dict():
 if __name__ == '__main__':
 
     switch_handler = int(input("请输入查询序号:"))
-    #text = input("请输入查询内容:")
-    #NLP(text)
+    text = input("请输入查询内容:")
+    NLP(text)
     
     if switch_handler == 1: #进行角色节点内部查询
         f = open("data.json" , 'r')
