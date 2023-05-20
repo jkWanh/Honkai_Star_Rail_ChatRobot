@@ -1,0 +1,140 @@
+QMainWindow{
+/*background-color: rgb(75, 173, 238); /*背景色*/
+background: url(./static/tange.png);  /* 添加背景图片，不可改变照片大小 */
+background-position:top center;   /* 设置背景图片位置 */
+/*background-repeat: no-repeat;
+background-position: center;*/
+}
+
+QPushButton#pushButton
+{
+	background-color: rgb(243,108,33); /*背景色*/
+	border-style: outset;    /* 边界内凹 */
+	border-width: 2px;     /* 边边界宽度 */
+	border-radius:16px; /* 边界圆滑 */
+	font: bold 22px;     /* 字体大小 */
+	min-width:2em;
+	color:white; /* 字体颜色 */
+}
+
+QPushButton#pushButton_2
+{
+	background-color: rgb(75, 173, 238); /*背景色*/
+	border-style: outset;    /* 边界内凹 */
+	border-width: 0px;     /* 边边界宽度 */
+	border-radius:10px; /* 边界圆滑 */
+	font: bold 18px;     /* 字体大小 */
+	min-width:2em;
+	color:white; /* 字体颜色 */
+}
+QPushButton#pushButton_4
+{
+	background-color: rgb(75, 173, 238); /*背景色*/
+	border-style: outset;    /* 边界内凹 */
+	border-width: 0px;     /* 边边界宽度 */
+	border-radius:10px; /* 边界圆滑 */
+	font: bold 18px;     /* 字体大小 */
+	min-width:2em;
+	color:white; /* 字体颜色 */
+}
+/* 鼠标经过改变按钮颜色 */
+QPushButton:hover
+{
+	background-color: rgb(0, 150, 0);
+}
+
+QPushButton#pushButton_3
+{
+  qproperty-icon: url(./static/avatar.png);
+  qproperty-iconSize: 140px 140px;
+  border-radius:25px;
+}
+
+QLineEdit
+{
+  border-radius:4px; /* 边界圆滑 */
+  border: 1px solid orange;
+}
+
+QListWidget
+{
+  background-color: rgb(246,245,236);
+  border: 2px blue;
+  border-radius: 4px;
+}
+
+QTabBar::tab
+{
+    background-color: rgb(251,185,51);
+    width:150px;
+    height:30px;
+    border-radius:3px;
+}
+
+#label_2
+{
+    color: black;
+    font-size: 26px;
+    font-family: Arial;
+    font-weight: bold;
+    alignment: center;
+}
+#label_3
+{
+    color: black;
+    font-size: 26px;
+    font-family: Arial;
+    font-weight: bold;
+    alignment: center;
+}
+#label_4
+{
+    color: black;
+    font-size: 26px;
+    font-family: Arial;
+    font-weight: bold;
+    alignment: center;
+}
+#label_5
+{
+    color: black;
+    font-size: 26px;
+    font-family: Arial;
+    font-weight: bold;
+    alignment: center;
+}
+#label_6
+{
+    color: white;
+    font-size: 26px;
+    font-family: Arial;
+    font-weight: bold;
+    alignment: center;
+}
+#label_7
+{
+    color: white;
+    font-size: 26px;
+    font-family: Arial;
+    font-weight: bold;
+    alignment: center;
+}
+#label_8
+{
+    color: white;
+    font-size: 26px;
+    font-family: Arial;
+    font-weight: bold;
+    alignment: center;
+}
+#label_9
+{
+    color: white;
+    font-size: 26px;
+    font-family: Arial;
+    font-weight: bold;
+    alignment: center;
+}
+
+
+
