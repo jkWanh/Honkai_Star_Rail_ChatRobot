@@ -1,0 +1,18 @@
+[
+    {
+        "word": "介绍",
+        "flag": "v"
+    },
+    {
+        "word": "一下",
+        "flag": "m"
+    },
+    {
+        "word": "后会有期",
+        "flag": "lightcones"
+    },
+    {
+        "word": " ",
+        "flag": "x"
+    }
+]
