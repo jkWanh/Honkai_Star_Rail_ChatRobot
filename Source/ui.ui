@@ -210,7 +210,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="iconSize">
      <size>
@@ -346,6 +346,7 @@
      <string>文件</string>
     </property>
     <addaction name="action"/>
+    <addaction name="action_GPT"/>
    </widget>
    <widget class="QMenu" name="menu">
     <property name="title">
@@ -359,12 +360,17 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action">
    <property name="text">
-    <string>导出查询记录</string>
+    <string>导出Robot查询记录</string>
    </property>
   </action>
   <action name="action_2">
    <property name="text">
-    <string>切换登录账户</string>
+    <string>更改账户信息</string>
+   </property>
+  </action>
+  <action name="action_GPT">
+   <property name="text">
+    <string>导出GPT查询内容</string>
    </property>
   </action>
  </widget>
@@ -377,8 +383,8 @@
    <slot>Query()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1059</x>
-     <y>61</y>
+     <x>1092</x>
+     <y>694</y>
     </hint>
     <hint type="destinationlabel">
      <x>1014</x>
@@ -386,8 +392,42 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>EditInfo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>156</x>
+     <y>690</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>125</x>
+     <y>740</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Query2()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1143</x>
+     <y>714</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>915</x>
+     <y>34</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>Query()</slot>
+  <slot>Query2()</slot>
+  <slot>EditInfo()</slot>
  </slots>
 </ui>
