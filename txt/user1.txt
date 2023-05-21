@@ -434,7 +434,7 @@ name id
 雅利洛-VI 1178 occupation
 星穹列车 1179 occupation
 空间站「黑塔」 1180 occupation
-仙舟「罗浮」 1181 occupation
+仙舟[罗浮] 1181 occupation
 繁星璀璨的天才 568 relics
 流星追迹的怪盗 569 relics
 晨昏交界的翔鹰 570 relics
@@ -613,3 +613,4 @@ name id
 介绍 1 name
 户籍 1 relationship
 联系 1 twotrue
+天赋 1 relationship

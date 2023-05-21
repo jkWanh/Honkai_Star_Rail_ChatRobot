@@ -4,6 +4,7 @@ import json
 from using_name import  *
 from using_relationship import  *
 from  is_true import  *
+from stringsplit import  *
 def clause(text):
     jieba.load_userdict("txt/user1.txt")
     words = pseg.cut(text)  # jieba默认模式
@@ -24,14 +25,29 @@ def  diversion(text):
         word = item['word']
         if flag == 'name':
             print(f"Flag: {flag}, Word: {word}")
-            return name(text)
+            ans = name(text)
+            print(ans)
+            label, ans = split(ans)
+            ans.insert(0, ('label', label))
+            newlist = [ans]
+            new_lst = [[elem[1] for elem in sublst] for sublst in newlist]
+            return  new_lst
+
         elif flag == 'relationship':
             print(f"Flag: {flag}, Word: {word}")
-            return relationship(text)
+            ans = relationship(text)
+            new_lst = [name.split("'")[1] for name in ans.split("<Record c.name=")[1:]]
+            result = ",".join(new_lst)
+            return result
         elif flag == 'twotrue':
             print(1)
             print(f"Flag: {flag}, Word: {word}")
-            return is_true(text)
+            if is_true(text) == True:
+                 ans = "是的"
+                 return ans
+            else :
+                ans = "不是的"
+                return ans
 
 
 

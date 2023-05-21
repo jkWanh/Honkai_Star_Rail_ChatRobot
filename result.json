@@ -1,18 +1,26 @@
 [
     {
-        "word": "介绍",
-        "flag": "name"
-    },
-    {
-        "word": "一下",
-        "flag": "m"
-    },
-    {
-        "word": " ",
-        "flag": "x"
-    },
-    {
         "word": "篡改的野心",
         "flag": "material"
+    },
+    {
+        "word": "可以",
+        "flag": "c"
+    },
+    {
+        "word": "升级",
+        "flag": "vn"
+    },
+    {
+        "word": "谁",
+        "flag": "r"
+    },
+    {
+        "word": "的",
+        "flag": "uj"
+    },
+    {
+        "word": "天赋",
+        "flag": "relationship"
     }
 ]

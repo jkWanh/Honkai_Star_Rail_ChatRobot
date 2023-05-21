@@ -19,7 +19,6 @@ def chaxun(first_letter1,first_letter2,flag1,flag2,word1,word2,n):
     driver = GraphDatabase.driver(uri, auth=("neo4j", "FN7ZTm3pYbBPQU44creN-H5P8_LvzAlIa284CpkwdIM"))
     # 查询节点属性
     query = 'MATCH path = ('+first_letter1+':'+flag1+' {name: "'+word1+'"})-[*1..'+str(n)+']-('+first_letter2+':'+flag2+'{name: "'+word2+'"}) RETURN DISTINCT path'
-    print(query)
     record_str = ''
     with driver.session() as session:
         result = session.run(query)
@@ -57,10 +56,12 @@ def is_true(text):
     print(word_array)
     n = 2
     ans = chaxun(first_letter_array[0],first_letter_array[1],flag_array[0],flag_array[1],word_array[0],word_array[1],n)
-    if ans != 0:
+    print(ans)
+    if ans != '':
         print("克拉拉和史瓦罗先生在2跳内有路径")
-    return  ans
-
+        return  True
+    else:
+        return False
 
 
 

@@ -39,23 +39,10 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
             self.lineEdit.setText('')
 
             # 生成回答
-            label,answer = self.Process(search_text)
-            print(label)
-            print(answer)
-            # 定义字符串格式
-            format_str = "{}: '{}', "
-            # 将列表转换为字符串
-            result_str = label + " "
-
-            for pair in answer:
-                result_str += format_str.format(pair[0], pair[1])
-
-            # 去掉最后一个逗号
-            result_str = result_str[:-2]
-            print(result_str)
+            answer = self.Process(search_text)
             # 记录回答内容
-            self.Answers.append(result_str)
-            self.add_record("Robot", result_str, True, 0)
+            self.Answers.append(answer)
+            self.add_record("Robot", answer, True, 0)
         else:
             QMessageBox.information(self, "提示", "不能发送空消息！", QMessageBox.Ok)
 
@@ -167,8 +154,8 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         此函数用于处理用户的原始查询输入，关键字提取等，可调用其他函数
         """
         ans = diversion(search_text)
-        label,ans = split(ans)
-        return label,ans
+        print(ans)
+        return ans
         #pass
 
     def EidtInfo(self):
