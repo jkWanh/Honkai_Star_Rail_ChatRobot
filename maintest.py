@@ -7,7 +7,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QWidget,
     QHBoxLayout, QSpacerItem, QFrame, QMessageBox, QDialog, QLineEdit
 import sys
 from ChatGPT import *
-from stringsplit import  *
 from diversion import  *
 class ChatRobot(QMainWindow, Ui_MainWindow):
 

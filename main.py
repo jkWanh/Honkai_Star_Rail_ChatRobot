@@ -165,26 +165,26 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
             case "Character":
                 text += "角色：" + mess_list[4]+"\n\n"
                 text += "属性：" + mess_list[7] + "\n\n品质：" + mess_list[6] + "\n\n"
-                text += "命运：" + mess_list[1] + "\n\n"
+                text += "命途：" + mess_list[1] + "\n\n"
                 text += "职业：" + mess_list[2] + "\n\n"
                 text += "派别：" + mess_list[3]
                 url = mess_list[5]
                 print(url)
                 return text, url
             case "Monster":
-                text += "怪物名：" + mess_list[3] + "\n\n"
+                text += "怪物名：" + mess_list[2] + "\n\n"
                 text += "地域：" + mess_list[1] + "\n\n"
                 text += "发现地：" + mess_list[4] + "\n\n"
-                text += "类型：" + mess_list[7] + "\n\n"
-                text += "抵抗：" + mess_list[8] + "\n\n"
-                text += "描述：" + mess_list[9]
+                text += "类型：" + mess_list[5] + "\n\n"
+                text += "抵抗：" + mess_list[7] + "\n\n"
+                text += "描述：" + mess_list[8]
                 url = mess_list[6]
                 return text, url
             case "Material":
                 text += "名称：" + mess_list[1] + "\n\n"
-                text += "类型：" + mess_list[4] + "\n\n"
-                text += "品质：" + mess_list[6] + "\n\n"
-                text += "描述：" + mess_list[5]
+                text += "类型：" + mess_list[3] + "\n\n"
+                text += "品质：" + mess_list[5] + "\n\n"
+                text += "描述：" + mess_list[4]
                 url = mess_list[2]
                 return text, url
 
@@ -196,9 +196,10 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
 
     def Process(self, search_text):
 
-        ans = diversion(search_text)
+        flag,ans = diversion(search_text)
+        print(flag)
         print(ans)
-        return ans
+        return flag,ans
         pass
 
     def EditInfo(self):

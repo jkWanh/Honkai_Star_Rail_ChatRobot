@@ -1,9 +1,7 @@
 import jieba
 import jieba.posseg as pseg
 import json
-from using_name import  *
-from using_relationship import  *
-from  is_true import  *
+from query import *
 from stringsplit import  *
 def clause(text):
     jieba.load_userdict("txt/user1.txt")
@@ -31,13 +29,13 @@ def  diversion(text):
             ans.insert(0, ('label', label))
             newlist = [ans]
             new_lst = [[elem[1] for elem in sublst] for sublst in newlist]
-            return  new_lst
+            return  0,new_lst
 
         elif flag == 'relationship':
             print(f"Flag: {flag}, Word: {word}")
             ans = relationship(text)
             print(ans)
-            return ans
+            return 1,ans
         elif flag == 'twotrue':
             print(1)
             print(f"Flag: {flag}, Word: {word}")
@@ -46,7 +44,7 @@ def  diversion(text):
                  return ans
             else :
                 ans = "不是的"
-                return ans
+                return 2,ans
 
 
 

@@ -195,7 +195,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(1)
         self.pushButton_2.clicked.connect(MainWindow.Query)
-        self.pushButton.clicked.connect(MainWindow.EidtInfo)
+        self.pushButton.clicked.connect(MainWindow.EditInfo)
         self.pushButton_4.clicked.connect(MainWindow.Query2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 

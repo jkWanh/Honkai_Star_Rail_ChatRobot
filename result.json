@@ -1,7 +1,7 @@
 [
     {
-        "word": "三月七",
-        "flag": "character"
+        "word": "篡改的野心",
+        "flag": "material"
     },
     {
         "word": "是",
@@ -10,6 +10,14 @@
     {
         "word": "谁",
         "flag": "r"
+    },
+    {
+        "word": "的",
+        "flag": "uj"
+    },
+    {
+        "word": "天赋",
+        "flag": "relationship"
     },
     {
         "word": "？",
