@@ -299,7 +299,7 @@ name id
 生命传输器 467 material
 强化膏：物理 468 material
 强化膏：虚数 469 material
-配方：强化膏：量子 470 material
+配方: 强化膏: 量子 470 material
 配方：强化膏：火 471 material
 配方：强化膏：冰 472 material
 简易抢救器 480 material

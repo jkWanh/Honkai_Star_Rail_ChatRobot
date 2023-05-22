@@ -36,9 +36,8 @@ def  diversion(text):
         elif flag == 'relationship':
             print(f"Flag: {flag}, Word: {word}")
             ans = relationship(text)
-            new_lst = [name.split("'")[1] for name in ans.split("<Record c.name=")[1:]]
-            result = ",".join(new_lst)
-            return result
+            print(ans)
+            return ans
         elif flag == 'twotrue':
             print(1)
             print(f"Flag: {flag}, Word: {word}")

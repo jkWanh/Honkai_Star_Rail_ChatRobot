@@ -1,26 +1,18 @@
 [
     {
-        "word": "篡改的野心",
-        "flag": "material"
+        "word": "三月七",
+        "flag": "character"
     },
     {
-        "word": "可以",
-        "flag": "c"
-    },
-    {
-        "word": "升级",
-        "flag": "vn"
+        "word": "是",
+        "flag": "v"
     },
     {
         "word": "谁",
         "flag": "r"
     },
     {
-        "word": "的",
-        "flag": "uj"
-    },
-    {
-        "word": "天赋",
-        "flag": "relationship"
+        "word": "？",
+        "flag": "x"
     }
 ]
