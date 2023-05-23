@@ -4,7 +4,7 @@ from PyQt5.QtCore import Qt, QRect, QSize
 from PyQt5.QtGui import QIcon, QPainter, QBrush, QPixmap
 from ui import *
 from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QWidget, QVBoxLayout, QLabel, QPushButton, \
-    QHBoxLayout, QSpacerItem, QFrame, QMessageBox, QDialog, QLineEdit
+    QHBoxLayout, QSpacerItem, QFrame, QMessageBox, QDialog, QLineEdit, QGraphicsDropShadowEffect
 import sys
 from ChatGPT import *
 
@@ -14,15 +14,39 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(ChatRobot, self).__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon("./static/icon.png"))
         # 记录每次的问题和回答内容，增加聊天导出功能
         self.Questions = []
         self.Questions2 = []
         self.Answers = []
         self.Answers2 = []
         # 调用圆形图片控件
-        self.label = CircleImage(self, 200, 200)
+        self.label = CircleImage(self, 150, 150)
         self.label.set_image(QPixmap('./static/avatar.png'))
-        self.label.move(40, 60)
+        self.label.move(58, 37)
+        self.label_2.setPixmap(QPixmap('./static/昵称.png'))
+        self.label_2.setScaledContents(True)  # 设置图片自适应大小
+        self.label_3.setPixmap(QPixmap("./static/id  ID.png"))
+        self.label_3.setScaledContents(True)
+        self.label_4.setPixmap(QPixmap("./static/level.png"))
+        self.label_4.setScaledContents(True)
+        # 设置默认常用英雄
+        self.label_5.setPixmap(QPixmap("./static/Chatacter/三月七.png"))
+        self.label_5.setScaledContents(True)
+        self.label_9.setPixmap(QPixmap("./static/Chatacter/丹恒.png"))
+        self.label_9.setScaledContents(True)
+        self.label_10.setPixmap(QPixmap("./static/Chatacter/佩拉.png"))
+        self.label_10.setScaledContents(True)
+        self.label_11.setPixmap(QPixmap("./static/Chatacter/停云.png"))
+        self.label_11.setScaledContents(True)
+        self.label_12.setPixmap(QPixmap("./static/Chatacter/克拉拉.png"))
+        self.label_12.setScaledContents(True)
+        self.label_13.setPixmap(QPixmap("./static/Chatacter/娜塔莎.png"))
+        self.label_13.setScaledContents(True)
+        self.label_14.setPixmap(QPixmap("./static/Chatacter/希儿.png"))
+        self.label_14.setScaledContents(True)
+        self.label_15.setPixmap(QPixmap("./static/省略.png"))
+        self.label_15.setScaledContents(True)
 
     def Query(self):
         """
@@ -34,16 +58,22 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         if search_text:
             # 记录问题内容
             self.Questions.append(search_text)
-            self.add_record("我", search_text, False, 0)
+            self.add_record("我", search_text, False, 0, 0)
             # 清空文本框中的消息
             self.lineEdit.setText('')
 
             # 生成回答
-            # answer = Process(search_text)
-            answer = [['Character', '毁灭', '雅利洛-VI', '/', '克拉拉', 'https://uploadstatic.mihoyo.com/sr-wiki/2023/03/09/187636729/6b0b412b079a5610d34c2d87a9faf665_5273843714696308389.png', '四星', '物理']]
+            # answer, sign = Process(search_text)
+            # answer = [['Character', '毁灭', '雅利洛-VI', '/', '克拉拉', 'https://uploadstatic.mihoyo.com/sr-wiki/2023/03/09/187636729/6b0b412b079a5610d34c2d87a9faf665_5273843714696308389.png', '四星', '物理']]
+            answer = [['Monster', '雅利洛-VI', '史瓦罗',
+                       'https://uploadstatic.mihoyo.com/sr-wiki/2023/02/13/1805320/985bba11b4bdb638a419c3e03bf378b6_8141612852300110453.png',
+                       '主线-雅利洛-Ⅵ-机械聚落', '首领',
+                       'https://act-upload.mihoyo.com/sr-wiki/2023/04/23/75216984/650f81099787a60dfa7e7cfa699c8548_5379009658282467124.png',
+                       '控制抵抗',
+                       '旧世界的古老遗物，地髓开拓团的时代遗留下的自动控制单元。与大部分无智、只接受指令的机器不同，史瓦罗具有复杂的思考能力。  在战斗中，史瓦罗会召来机械臂抓取和控制敌人，对目标进行沉重的打击。']]
             # 记录回答内容
             self.Answers.append(answer)
-            self.add_record("Robot", answer, True, 0)
+            self.add_record("Robot", answer, True, 0, 0)
         else:
             QMessageBox.information(self, "提示", "不能发送空消息！", QMessageBox.Ok)
 
@@ -57,18 +87,18 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         if search_text:
             # 记录问题内容
             self.Questions2.append(search_text)
-            self.add_record("我", search_text, False, 1)
+            self.add_record("我", search_text, False, 1, 0)
             # 清空文本框中的消息
             self.lineEdit.setText('')
             # 生成回答
             answer = GPT(search_text)
             # 记录回答内容
             self.Answers2.append(answer)
-            self.add_record("GPT", answer, True, 1)
+            self.add_record("GPT", answer, True, 1, 0)
         else:
             QMessageBox.information(self, "提示", "不能发送空消息！", QMessageBox.Ok)
 
-    def add_record(self, character, content, ans, mode):
+    def add_record(self, character, content, ans, mode, sign):
         """
         新增一条消息到记录框
         ans为真表示回答，否则表示问题
@@ -104,38 +134,86 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
 
         # 判断提问或是回答
         if ans:
-            for message in content:
-                text, url = self.TextShow(message, message[0])
-                # 添加消息文本控件
-                answerLabel = QLabel(text)
-                answerLabel.setWordWrap(True)  # 设置自动换行
-                answerLabel.setStyleSheet('font-size: 20px; color: #333333;')
-                answerLabel.setFrameShape(QFrame.Panel)
-                answerLabel.setFrameShadow(QFrame.Sunken)
-                # 放入图片标签
-                try:
-                    response = requests.get(url)
-                    image_data = response.content
-                    # 将图片数据加载到QPixmap中
-                    pixmap = QPixmap()
-                    pixmap.loadFromData(image_data)
-                except Exception as exc:
-                    print(exc)
-                    pixmap = QPixmap("./static/avatar.png")
-                # 设置QLabel的图片
-                iconlabel = QLabel()
-                iconlabel.setPixmap(pixmap)
-                iconlabel.setScaledContents(True)  # 设置图片自适应大小
-                iconlabel.setFixedSize(280, 280)
-                # 创建水平布局
-                displayLayout = QHBoxLayout()
-                displayLayout.addWidget(iconlabel)
-                spacer = QSpacerItem(50, 30)
-                displayLayout.addItem(spacer)
-                displayLayout.addWidget(answerLabel)
+            match sign:
+                case 0:
+                    for message in content:
+                        text, url = self.TextShow(message, message[0])
+                        # 添加消息文本控件
+                        answerLabel = QLabel(text)
+                        answerLabel.setWordWrap(True)  # 设置自动换行
+                        answerLabel.setStyleSheet('font-size: 20px; color: #333333;')
+                        answerLabel.setFrameShape(QFrame.Panel)
+                        answerLabel.setFrameShadow(QFrame.Sunken)
+                        # 放入图片标签
+                        try:
+                            response = requests.get(url)
+                            image_data = response.content
+                            # 将图片数据加载到QPixmap中
+                            pixmap = QPixmap()
+                            pixmap.loadFromData(image_data)
+                        except Exception as exc:
+                            print(exc)
+                            pixmap = QPixmap("./static/avatar.png")
+                            # 设置QLabel的图片
+                        iconlabel = QLabel()
+                        iconlabel.setPixmap(pixmap)
+                        iconlabel.setScaledContents(True)  # 设置图片自适应大小
+                        iconlabel.setFixedSize(280, 280)
+                        # 创建水平布局
+                        displayLayout = QHBoxLayout()
+                        displayLayout.addWidget(iconlabel)
+                        spacer = QSpacerItem(30, 30)
+                        displayLayout.addItem(spacer)
+                        displayLayout.addWidget(answerLabel)
 
-                itemLayout.addLayout(displayLayout)
-                itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
+                        itemLayout.addLayout(displayLayout)
+                        itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
+                case 1:
+                    for message in content:
+                        text = message[0]
+                        url = message[1]
+                        # 添加消息文本控件
+                        answerLabel = QLabel(text)
+                        answerLabel.setWordWrap(True)  # 设置自动换行
+                        answerLabel.setStyleSheet('font-size: 20px; color: #333333;')
+                        answerLabel.setFrameShape(QFrame.Panel)
+                        answerLabel.setFrameShadow(QFrame.Sunken)
+                        # 放入图片标签
+                        try:
+                            response = requests.get(url)
+                            image_data = response.content
+                            # 将图片数据加载到QPixmap中
+                            pixmap = QPixmap()
+                            pixmap.loadFromData(image_data)
+                        except Exception as exc:
+                            print(exc)
+                            pixmap = QPixmap("./static/avatar.png")
+                            # 设置QLabel的图片
+                        iconlabel = QLabel()
+                        iconlabel.setPixmap(pixmap)
+                        iconlabel.setScaledContents(True)  # 设置图片自适应大小
+                        iconlabel.setFixedSize(80, 80)
+                        # 创建水平布局
+                        displayLayout = QHBoxLayout()
+                        displayLayout.addWidget(iconlabel)
+                        spacer = QSpacerItem(10, 30)
+                        displayLayout.addItem(spacer)
+                        displayLayout.addWidget(answerLabel)
+
+                        itemLayout.addLayout(displayLayout)
+                        itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
+                case 2:
+                    for message in content:
+                        text = message[0]
+                        # 添加消息文本控件
+                        answerLabel = QLabel(text)
+                        answerLabel.setWordWrap(True)  # 设置自动换行
+                        answerLabel.setStyleSheet('font-size: 20px; color: #333333;')
+                        answerLabel.setFrameShape(QFrame.Panel)
+                        answerLabel.setFrameShadow(QFrame.Sunken)
+                        itemLayout.addWidget(answerLabel)
+                        itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
+
         else:
             # 添加消息文本控件
             questionLabel = QLabel(content)
@@ -164,7 +242,7 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         text = ""
         match label:
             case "Character":
-                text += "角色：" + mess_list[4]+"\n\n"
+                text += "角色：" + mess_list[4] + "\n\n"
                 text += "属性：" + mess_list[7] + "\n\n品质：" + mess_list[6] + "\n\n"
                 text += "命运：" + mess_list[1] + "\n\n"
                 text += "职业：" + mess_list[2] + "\n\n"
@@ -221,6 +299,7 @@ class QSSLoader:
     """
     加载QSS样式类
     """
+
     def __init__(self):
         pass
 
@@ -234,6 +313,7 @@ class CircleImage(QLabel):
     """
     绘制圆形图片工具类
     """
+
     def __init__(self, parent, width, height):
         super(CircleImage, self).__init__(parent)
         self.resize(width, height)
@@ -259,17 +339,19 @@ class FormDialog(QDialog):
     """
     提交表单对话类
     """
+
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("输入信息以登录账户")
+        self.setWindowTitle("更改个人信息")
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
-        self.label = QLabel("UID：")
+        self.label = QLabel("昵称：")
         self.line_edit = QLineEdit()
-        self.label2 = QLabel("Password：")
+        self.label2 = QLabel("UID：")
         self.line_edit2 = QLineEdit()
-        self.line_edit2.setEchoMode(QLineEdit.Password)
+        self.label3 = QLabel("等级")
+
         self.submit_button = QPushButton("确定")
         self.submit_button.clicked.connect(self.submit_form)
 
@@ -285,11 +367,12 @@ class FormDialog(QDialog):
         # 在这里执行提交表单的逻辑，可以将数据发送到后端或执行其他操作
         self.accept()
 
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     # 创建对象
     robot = ChatRobot()
-    robot.setFixedSize(1207, 792)
+    robot.setFixedSize(1408, 875)
     # 加载QSS样式表
     style_file = 'ui.qss'
     style_sheet = QSSLoader.read_qss_file(style_file)
