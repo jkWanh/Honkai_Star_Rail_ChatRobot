@@ -76,6 +76,7 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         选择常用英雄
         """
         dialog = SelectHeroDialog()
+        dialog.setWindowIcon(QIcon("./static/icon.png"))
         # 加载QSS样式表
         style = 'SelectHeros.qss'
         sheet = QSSLoader.read_qss_file(style)
@@ -204,7 +205,7 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
                         # 创建水平布局
                         displayLayout = QHBoxLayout()
                         displayLayout.addWidget(iconlabel)
-                        spacer = QSpacerItem(30, 30)
+                        spacer = QSpacerItem(15, 30)
                         displayLayout.addItem(spacer)
                         displayLayout.addWidget(answerLabel)
 
@@ -365,6 +366,7 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         """
         dialog = FormDialog()
         # 加载QSS样式表
+        dialog.setWindowIcon(QIcon("./static/icon.png"))
         style = 'EditInfo.qss'
         sheet = QSSLoader.read_qss_file(style)
         dialog.setStyleSheet(sheet)
@@ -447,8 +449,8 @@ class FormDialog(QDialog):
         self.label3 = QLabel("等级")
         self.line_edit3 = QLineEdit()
 
-        self.submit_button = QPushButton("确定")
-        self.submit_button.clicked.connect(self.submit_form)
+        self.submit = QPushButton("确定")
+        self.submit.clicked.connect(self.submit_form)
 
         self.layout.addWidget(self.label0)
         self.layout.addWidget(self.avatar)
@@ -458,7 +460,7 @@ class FormDialog(QDialog):
         self.layout.addWidget(self.line_edit2)
         self.layout.addWidget(self.label3)
         self.layout.addWidget(self.line_edit3)
-        self.layout.addWidget(self.submit_button)
+        self.layout.addWidget(self.submit)
 
     def submit_form(self):
         self.name = self.line_edit.text()
