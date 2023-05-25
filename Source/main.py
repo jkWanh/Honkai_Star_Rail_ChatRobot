@@ -76,6 +76,10 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         选择常用英雄
         """
         dialog = SelectHeroDialog()
+        # 加载QSS样式表
+        style = 'SelectHeros.qss'
+        sheet = QSSLoader.read_qss_file(style)
+        dialog.setStyleSheet(sheet)
         if dialog.exec_() == QDialog.Accepted:
             self.heros = dialog.heros
             self.set_heros()
@@ -84,6 +88,8 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
 
     def hero_detail(self, hero_id):
         QMessageBox.information(self, "提示", "%s" % self.heros[hero_id], QMessageBox.Ok)
+        content = ["pass"]
+        self.add_record("Robot", content, True, 0, 4)
 
     def Query(self):
         """
@@ -238,18 +244,56 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
 
                         itemLayout.addLayout(displayLayout)
                         itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
-                case 2:
-                    for message in content:
-                        text = message[0]
-                        # 添加消息文本控件
-                        answerLabel = QLabel(text)
-                        answerLabel.setWordWrap(True)  # 设置自动换行
-                        answerLabel.setStyleSheet('font-size: 20px; color: #333333;')
-                        answerLabel.setFrameShape(QFrame.Panel)
-                        answerLabel.setFrameShadow(QFrame.Sunken)
-                        itemLayout.addWidget(answerLabel)
+                case 2:  # 只显示图片
+                    for url in content:
+                        # 放入图片标签
+                        try:
+                            response = requests.get(url)
+                            image_data = response.content
+                            # 将图片数据加载到QPixmap中
+                            pixmap = QPixmap()
+                            pixmap.loadFromData(image_data)
+                        except Exception as exc:
+                            print(exc)
+                            pixmap = QPixmap("./static/avatar.png")
+                            # 设置QLabel的图片
+                        iconlabel = QLabel()
+                        iconlabel.setPixmap(pixmap)
+                        iconlabel.setScaledContents(True)  # 设置图片自适应大小
+                        iconlabel.setFixedSize(300, 300)
+                        itemLayout.addWidget(iconlabel)
                         itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
-
+                case 3:  # 只显示文字
+                    for answer in content:
+                        # 添加消息文本控件
+                        ansLabel = QLabel(answer)
+                        ansLabel.setWordWrap(True)  # 设置自动换行
+                        ansLabel.setStyleSheet('font-size: 20px; color: #333333;')
+                        ansLabel.setFrameShape(QFrame.Panel)
+                        ansLabel.setFrameShadow(QFrame.Sunken)
+                        itemLayout.addWidget(ansLabel)
+                        itemWidget.setStyleSheet('background-color: #cde6c7; border-radius: 10px; margin: 5px;')
+                case 4:  # 显示角色的攻略
+                    for url in content:
+                        # 放入图片标签
+                        try:
+                            response = requests.get(url)
+                            image_data = response.content
+                            # 将图片数据加载到QPixmap中
+                            pixmap = QPixmap()
+                            pixmap.loadFromData(image_data)
+                        except Exception as exc:
+                            print(exc)
+                            pixmap = QPixmap("./static/avatar.png")
+                            # 设置QLabel的图片
+                        iconlabel = QLabel()
+                        iconlabel.setPixmap(pixmap)
+                        iconlabel.setScaledContents(True)  # 设置图片自适应大小
+                        iconlabel.setFixedSize(600, 400)
+                        itemLayout.addWidget(iconlabel)
+                        itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
+                case 5:  # 显示gpt回答
+                    pass
         else:
             # 添加消息文本控件
             questionLabel = QLabel(content)
@@ -287,13 +331,13 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
                 print(url)
                 return text, url
             case "Monster":
-                text += "怪物名：" + mess_list[2] + "\n\n"
+                text += "怪物名：" + mess_list[3] + "\n\n"
                 text += "地域：" + mess_list[1] + "\n\n"
                 text += "发现地：" + mess_list[4] + "\n\n"
-                text += "类型：" + mess_list[5] + "\n\n"
+                text += "类型：" + mess_list[6] + "\n\n"
                 text += "抵抗：" + mess_list[7] + "\n\n"
                 text += "描述：" + mess_list[8]
-                url = mess_list[6]
+                url = mess_list[5]
                 return text, url
             case "Material":
                 text += "名称：" + mess_list[1] + "\n\n"
@@ -320,10 +364,17 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         修改个人信息
         """
         dialog = FormDialog()
+        # 加载QSS样式表
+        style = 'EditInfo.qss'
+        sheet = QSSLoader.read_qss_file(style)
+        dialog.setStyleSheet(sheet)
         if dialog.exec_() == QDialog.Accepted:
-            self.label_6.setText(dialog.name)
-            self.label_7.setText(dialog.UID)
-            self.label_8.setText(dialog.level)
+            if dialog.name is not None:
+                self.label_6.setText(dialog.name)
+            if dialog.UID is not None:
+                self.label_7.setText(dialog.UID)
+            if dialog.level is not None:
+                self.label_8.setText(dialog.level)
             if dialog.file_path is not None:
                 try:
                     os.remove("./static/avatar.png")
@@ -339,7 +390,6 @@ class QSSLoader:
     """
     加载QSS样式类
     """
-
     def __init__(self):
         pass
 
@@ -379,6 +429,7 @@ class FormDialog(QDialog):
     """
     提交表单对话类
     """
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("更改个人信息")
@@ -434,6 +485,7 @@ class SelectHeroDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("选择常用角色")
+        self.setFixedSize(500, 600)
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
         self.heros = []
