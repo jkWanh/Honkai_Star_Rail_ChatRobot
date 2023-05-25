@@ -130,7 +130,7 @@
         <x>10</x>
         <y>10</y>
         <width>1081</width>
-        <height>681</height>
+        <height>671</height>
        </rect>
       </property>
      </widget>
@@ -138,7 +138,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>710</y>
+        <y>700</y>
         <width>951</width>
         <height>51</height>
        </rect>
@@ -148,7 +148,7 @@
       <property name="geometry">
        <rect>
         <x>990</x>
-        <y>710</y>
+        <y>700</y>
         <width>101</width>
         <height>51</height>
        </rect>
@@ -204,104 +204,104 @@
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
-    <widget class="QLabel" name="label_5">
+    <widget class="QPushButton" name="cha1">
      <property name="geometry">
       <rect>
        <x>30</x>
        <y>30</y>
-       <width>72</width>
-       <height>71</height>
+       <width>81</width>
+       <height>81</height>
       </rect>
      </property>
      <property name="text">
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_9">
+    <widget class="QPushButton" name="cha2">
      <property name="geometry">
       <rect>
-       <x>150</x>
+       <x>140</x>
        <y>30</y>
-       <width>72</width>
-       <height>71</height>
+       <width>81</width>
+       <height>81</height>
       </rect>
      </property>
      <property name="text">
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_10">
+    <widget class="QPushButton" name="cha3">
      <property name="geometry">
       <rect>
        <x>30</x>
        <y>120</y>
-       <width>72</width>
-       <height>71</height>
+       <width>81</width>
+       <height>81</height>
       </rect>
      </property>
      <property name="text">
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_11">
+    <widget class="QPushButton" name="cha4">
      <property name="geometry">
       <rect>
-       <x>150</x>
+       <x>140</x>
        <y>120</y>
-       <width>72</width>
-       <height>71</height>
+       <width>81</width>
+       <height>81</height>
       </rect>
      </property>
      <property name="text">
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_12">
+    <widget class="QPushButton" name="cha5">
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>220</y>
-       <width>72</width>
-       <height>71</height>
+       <y>210</y>
+       <width>81</width>
+       <height>81</height>
       </rect>
      </property>
      <property name="text">
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_13">
+    <widget class="QPushButton" name="cha6">
      <property name="geometry">
       <rect>
-       <x>150</x>
-       <y>220</y>
-       <width>72</width>
-       <height>71</height>
+       <x>140</x>
+       <y>210</y>
+       <width>81</width>
+       <height>81</height>
       </rect>
      </property>
      <property name="text">
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_14">
+    <widget class="QPushButton" name="cha7">
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>310</y>
-       <width>72</width>
-       <height>71</height>
+       <y>300</y>
+       <width>81</width>
+       <height>81</height>
       </rect>
      </property>
      <property name="text">
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_15">
+    <widget class="QPushButton" name="more">
      <property name="geometry">
       <rect>
-       <x>150</x>
-       <y>310</y>
-       <width>72</width>
-       <height>71</height>
+       <x>140</x>
+       <y>300</y>
+       <width>81</width>
+       <height>81</height>
       </rect>
      </property>
      <property name="text">
@@ -539,8 +539,8 @@
    <slot>Query()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1092</x>
-     <y>694</y>
+     <x>1272</x>
+     <y>754</y>
     </hint>
     <hint type="destinationlabel">
      <x>1014</x>
@@ -556,7 +556,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>156</x>
-     <y>690</y>
+     <y>776</y>
     </hint>
     <hint type="destinationlabel">
      <x>125</x>
@@ -571,8 +571,8 @@
    <slot>Query2()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1143</x>
-     <y>714</y>
+     <x>1272</x>
+     <y>764</y>
     </hint>
     <hint type="destinationlabel">
      <x>915</x>

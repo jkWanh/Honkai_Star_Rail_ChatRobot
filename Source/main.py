@@ -1,12 +1,15 @@
+import re
+
 import pyperclip
 import requests
 from PyQt5.QtCore import Qt, QRect, QSize
 from PyQt5.QtGui import QIcon, QPainter, QBrush, QPixmap
 from ui import *
 from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QWidget, QVBoxLayout, QLabel, QPushButton, \
-    QHBoxLayout, QSpacerItem, QFrame, QMessageBox, QDialog, QLineEdit, QGraphicsDropShadowEffect
+    QHBoxLayout, QSpacerItem, QFrame, QMessageBox, QDialog, QLineEdit, QGraphicsDropShadowEffect, QFileDialog, QComboBox
 import sys
 from ChatGPT import *
+from shutil import copyfile
 
 
 class ChatRobot(QMainWindow, Ui_MainWindow):
@@ -20,6 +23,7 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         self.Questions2 = []
         self.Answers = []
         self.Answers2 = []
+        self.heros = ["三月七", '丹恒', '佩拉', '停云', '克拉拉', '姬子', '娜塔莎']
         # 调用圆形图片控件
         self.label = CircleImage(self, 150, 150)
         self.label.set_image(QPixmap('./static/avatar.png'))
@@ -30,23 +34,56 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         self.label_3.setScaledContents(True)
         self.label_4.setPixmap(QPixmap("./static/level.png"))
         self.label_4.setScaledContents(True)
+        self.set_heros()
+        self.more.setIcon(QIcon("./static/省略.png"))
+        self.more.setIconSize(QSize(81, 81))
+        self.more.setToolTip("点击以选择角色")
+        self.cha1.clicked.connect(lambda: self.hero_detail(0))
+        self.cha2.clicked.connect(lambda: self.hero_detail(1))
+        self.cha3.clicked.connect(lambda: self.hero_detail(2))
+        self.cha4.clicked.connect(lambda: self.hero_detail(3))
+        self.cha5.clicked.connect(lambda: self.hero_detail(4))
+        self.cha6.clicked.connect(lambda: self.hero_detail(5))
+        self.cha7.clicked.connect(lambda: self.hero_detail(6))
+        self.more.clicked.connect(self.select_heros)
+
+    def set_heros(self):
         # 设置默认常用英雄
-        self.label_5.setPixmap(QPixmap("./static/Chatacter/三月七.png"))
-        self.label_5.setScaledContents(True)
-        self.label_9.setPixmap(QPixmap("./static/Chatacter/丹恒.png"))
-        self.label_9.setScaledContents(True)
-        self.label_10.setPixmap(QPixmap("./static/Chatacter/佩拉.png"))
-        self.label_10.setScaledContents(True)
-        self.label_11.setPixmap(QPixmap("./static/Chatacter/停云.png"))
-        self.label_11.setScaledContents(True)
-        self.label_12.setPixmap(QPixmap("./static/Chatacter/克拉拉.png"))
-        self.label_12.setScaledContents(True)
-        self.label_13.setPixmap(QPixmap("./static/Chatacter/娜塔莎.png"))
-        self.label_13.setScaledContents(True)
-        self.label_14.setPixmap(QPixmap("./static/Chatacter/希儿.png"))
-        self.label_14.setScaledContents(True)
-        self.label_15.setPixmap(QPixmap("./static/省略.png"))
-        self.label_15.setScaledContents(True)
+        self.cha1.setIcon(QIcon("./static/Chatacter/%s.png" % self.heros[0]))
+        self.cha1.setIconSize(QSize(81, 81))
+        self.cha1.setToolTip("角色：%s\n点击以查看攻略" % self.heros[0])
+        self.cha2.setIcon(QIcon("./static/Chatacter/%s.png" % self.heros[1]))
+        self.cha2.setIconSize(QSize(81, 81))
+        self.cha2.setToolTip("角色：%s\n点击以查看攻略" % self.heros[1])
+        self.cha3.setIcon(QIcon("./static/Chatacter/%s.png" % self.heros[2]))
+        self.cha3.setIconSize(QSize(81, 81))
+        self.cha3.setToolTip("角色：%s\n点击以查看攻略" % self.heros[2])
+        self.cha4.setIcon(QIcon("./static/Chatacter/%s.png" % self.heros[3]))
+        self.cha4.setIconSize(QSize(81, 81))
+        self.cha4.setToolTip("角色：%s\n点击以查看攻略" % self.heros[3])
+        self.cha5.setIcon(QIcon("./static/Chatacter/%s.png" % self.heros[4]))
+        self.cha5.setIconSize(QSize(81, 81))
+        self.cha5.setToolTip("角色：%s\n点击以查看攻略" % self.heros[4])
+        self.cha6.setIcon(QIcon("./static/Chatacter/%s.png" % self.heros[5]))
+        self.cha6.setIconSize(QSize(81, 81))
+        self.cha6.setToolTip("角色：%s\n点击以查看攻略" % self.heros[5])
+        self.cha7.setIcon(QIcon("./static/Chatacter/%s.png" % self.heros[6]))
+        self.cha7.setIconSize(QSize(81, 81))
+        self.cha7.setToolTip("角色：%s\n点击以查看攻略" % self.heros[6])
+
+    def select_heros(self):
+        """
+        选择常用英雄
+        """
+        dialog = SelectHeroDialog()
+        if dialog.exec_() == QDialog.Accepted:
+            self.heros = dialog.heros
+            self.set_heros()
+        else:
+            print("Form submission canceled")
+
+    def hero_detail(self, hero_id):
+        QMessageBox.information(self, "提示", "%s" % self.heros[hero_id], QMessageBox.Ok)
 
     def Query(self):
         """
@@ -71,7 +108,6 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
                        'https://act-upload.mihoyo.com/sr-wiki/2023/04/23/75216984/650f81099787a60dfa7e7cfa699c8548_5379009658282467124.png',
                        '控制抵抗',
                        '旧世界的古老遗物，地髓开拓团的时代遗留下的自动控制单元。与大部分无智、只接受指令的机器不同，史瓦罗具有复杂的思考能力。  在战斗中，史瓦罗会召来机械臂抓取和控制敌人，对目标进行沉重的打击。']]
-            # 记录回答内容
             self.Answers.append(answer)
             self.add_record("Robot", answer, True, 0, 0)
         else:
@@ -281,16 +317,20 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
 
     def EditInfo(self):
         """
-        切换账户信息，需要爬虫实现
+        修改个人信息
         """
         dialog = FormDialog()
         if dialog.exec_() == QDialog.Accepted:
-            print("Form submitted successfully")
-            print("%s\n%s" % (dialog.UID, dialog.Password))
-            """
-            登录过程
-            """
-
+            self.label_6.setText(dialog.name)
+            self.label_7.setText(dialog.UID)
+            self.label_8.setText(dialog.level)
+            if dialog.file_path is not None:
+                try:
+                    os.remove("./static/avatar.png")
+                    copyfile(dialog.file_path, "./static/avatar.png")
+                    self.label.set_image(QPixmap('./static/avatar.png'))
+                except Exception as exc:
+                    print(exc)
         else:
             print("Form submission canceled")
 
@@ -339,32 +379,269 @@ class FormDialog(QDialog):
     """
     提交表单对话类
     """
-
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("更改个人信息")
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
-
+        self.setFixedSize(500, 400)
+        self.file_path = None
+        self.label0 = QLabel("头像：")
+        self.avatar = QPushButton("点击选择文件")
+        self.avatar.clicked.connect(self.upload)
         self.label = QLabel("昵称：")
         self.line_edit = QLineEdit()
         self.label2 = QLabel("UID：")
         self.line_edit2 = QLineEdit()
         self.label3 = QLabel("等级")
+        self.line_edit3 = QLineEdit()
 
         self.submit_button = QPushButton("确定")
         self.submit_button.clicked.connect(self.submit_form)
 
+        self.layout.addWidget(self.label0)
+        self.layout.addWidget(self.avatar)
         self.layout.addWidget(self.label)
         self.layout.addWidget(self.line_edit)
         self.layout.addWidget(self.label2)
         self.layout.addWidget(self.line_edit2)
+        self.layout.addWidget(self.label3)
+        self.layout.addWidget(self.line_edit3)
         self.layout.addWidget(self.submit_button)
 
     def submit_form(self):
-        self.UID = self.line_edit.text()
-        self.Password = self.line_edit2.text()
-        # 在这里执行提交表单的逻辑，可以将数据发送到后端或执行其他操作
+        self.name = self.line_edit.text()
+        self.UID = self.line_edit2.text()
+        self.level = self.line_edit3.text()
+        self.accept()
+
+    def upload(self):
+        file_dialog = QFileDialog()
+        file_dialog.setFileMode(QFileDialog.ExistingFile)
+        # file_dialog.setNameFilter("(*.png);;(*.jpg)")
+        file_dialog.setNameFilter("(*.png)")
+
+        if file_dialog.exec_():
+            self.file_path = file_dialog.selectedFiles()[0]
+            self.avatar.setText(re.search('(\w*.png)$', self.file_path).group(1))
+
+
+class SelectHeroDialog(QDialog):
+    """
+    选择英雄对话类
+    """
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("选择常用角色")
+        self.layout = QVBoxLayout()
+        self.setLayout(self.layout)
+        self.heros = []
+
+        self.label1 = QLabel("角色一")
+        self.label2 = QLabel("角色二")
+        self.label3 = QLabel("角色三")
+        self.label4 = QLabel("角色四")
+        self.label5 = QLabel("角色五")
+        self.label6 = QLabel("角色六")
+        self.label7 = QLabel("角色七")
+
+        self.cha1 = QComboBox()
+        self.cha1.addItem("三月七", 0)
+        self.cha1.addItem("丹恒", 1)
+        self.cha1.addItem("佩拉", 2)
+        self.cha1.addItem("停云", 3)
+        self.cha1.addItem("克拉拉", 4)
+        self.cha1.addItem("姬子", 5)
+        self.cha1.addItem("娜塔莎", 6)
+        self.cha1.addItem("布洛妮娅", 7)
+        self.cha1.addItem("希儿", 8)
+        self.cha1.addItem("希露瓦", 9)
+        self.cha1.addItem("开拓者·存护", 10)
+        self.cha1.addItem("开拓者·毁灭", 11)
+        self.cha1.addItem("彦卿", 12)
+        self.cha1.addItem("杰帕德", 13)
+        self.cha1.addItem("桑博", 14)
+        self.cha1.addItem("瓦尔特", 15)
+        self.cha1.addItem("白露", 16)
+        self.cha1.addItem("素裳", 17)
+        self.cha1.addItem("艾丝妲", 18)
+        self.cha1.addItem("虎克", 19)
+        self.cha1.addItem("阿兰", 20)
+        self.cha1.addItem("青雀", 21)
+        self.cha1.addItem("黑塔", 22)
+        self.cha2 = QComboBox()
+        self.cha2.addItem("丹恒", 0)
+        self.cha2.addItem("三月七", 1)
+        self.cha2.addItem("佩拉", 2)
+        self.cha2.addItem("停云", 3)
+        self.cha2.addItem("克拉拉", 4)
+        self.cha2.addItem("姬子", 5)
+        self.cha2.addItem("娜塔莎", 6)
+        self.cha2.addItem("布洛妮娅", 7)
+        self.cha2.addItem("希儿", 8)
+        self.cha2.addItem("希露瓦", 9)
+        self.cha2.addItem("开拓者·存护", 10)
+        self.cha2.addItem("开拓者·毁灭", 11)
+        self.cha2.addItem("彦卿", 12)
+        self.cha2.addItem("杰帕德", 13)
+        self.cha2.addItem("桑博", 14)
+        self.cha2.addItem("瓦尔特", 15)
+        self.cha2.addItem("白露", 16)
+        self.cha2.addItem("素裳", 17)
+        self.cha2.addItem("艾丝妲", 18)
+        self.cha2.addItem("虎克", 19)
+        self.cha2.addItem("阿兰", 20)
+        self.cha2.addItem("青雀", 21)
+        self.cha2.addItem("黑塔", 22)
+        self.cha3 = QComboBox()
+        self.cha3.addItem("佩拉", 0)
+        self.cha3.addItem("丹恒", 1)
+        self.cha3.addItem("三月七", 2)
+        self.cha3.addItem("停云", 3)
+        self.cha3.addItem("克拉拉", 4)
+        self.cha3.addItem("姬子", 5)
+        self.cha3.addItem("娜塔莎", 6)
+        self.cha3.addItem("布洛妮娅", 7)
+        self.cha3.addItem("希儿", 8)
+        self.cha3.addItem("希露瓦", 9)
+        self.cha3.addItem("开拓者·存护", 10)
+        self.cha3.addItem("开拓者·毁灭", 11)
+        self.cha3.addItem("彦卿", 12)
+        self.cha3.addItem("杰帕德", 13)
+        self.cha3.addItem("桑博", 14)
+        self.cha3.addItem("瓦尔特", 15)
+        self.cha3.addItem("白露", 16)
+        self.cha3.addItem("素裳", 17)
+        self.cha3.addItem("艾丝妲", 18)
+        self.cha3.addItem("虎克", 19)
+        self.cha3.addItem("阿兰", 20)
+        self.cha3.addItem("青雀", 21)
+        self.cha3.addItem("黑塔", 22)
+        self.cha4 = QComboBox()
+        self.cha4.addItem("停云", 0)
+        self.cha4.addItem("丹恒", 1)
+        self.cha4.addItem("佩拉", 2)
+        self.cha4.addItem("三月七", 3)
+        self.cha4.addItem("克拉拉", 4)
+        self.cha4.addItem("姬子", 5)
+        self.cha4.addItem("娜塔莎", 6)
+        self.cha4.addItem("布洛妮娅", 7)
+        self.cha4.addItem("希儿", 8)
+        self.cha4.addItem("希露瓦", 9)
+        self.cha4.addItem("开拓者·存护", 10)
+        self.cha4.addItem("开拓者·毁灭", 11)
+        self.cha4.addItem("彦卿", 12)
+        self.cha4.addItem("杰帕德", 13)
+        self.cha4.addItem("桑博", 14)
+        self.cha4.addItem("瓦尔特", 15)
+        self.cha4.addItem("白露", 16)
+        self.cha4.addItem("素裳", 17)
+        self.cha4.addItem("艾丝妲", 18)
+        self.cha4.addItem("虎克", 19)
+        self.cha4.addItem("阿兰", 20)
+        self.cha4.addItem("青雀", 21)
+        self.cha4.addItem("黑塔", 22)
+        self.cha5 = QComboBox()
+        self.cha5.addItem("克拉拉", 0)
+        self.cha5.addItem("丹恒", 1)
+        self.cha5.addItem("佩拉", 2)
+        self.cha5.addItem("停云", 3)
+        self.cha5.addItem("三月七", 4)
+        self.cha5.addItem("姬子", 5)
+        self.cha5.addItem("娜塔莎", 6)
+        self.cha5.addItem("布洛妮娅", 7)
+        self.cha5.addItem("希儿", 8)
+        self.cha5.addItem("希露瓦", 9)
+        self.cha5.addItem("开拓者·存护", 10)
+        self.cha5.addItem("开拓者·毁灭", 11)
+        self.cha5.addItem("彦卿", 12)
+        self.cha5.addItem("杰帕德", 13)
+        self.cha5.addItem("桑博", 14)
+        self.cha5.addItem("瓦尔特", 15)
+        self.cha5.addItem("白露", 16)
+        self.cha5.addItem("素裳", 17)
+        self.cha5.addItem("艾丝妲", 18)
+        self.cha5.addItem("虎克", 19)
+        self.cha5.addItem("阿兰", 20)
+        self.cha5.addItem("青雀", 21)
+        self.cha5.addItem("黑塔", 22)
+        self.cha6 = QComboBox()
+        self.cha6.addItem("姬子", 0)
+        self.cha6.addItem("丹恒", 1)
+        self.cha6.addItem("佩拉", 2)
+        self.cha6.addItem("停云", 3)
+        self.cha6.addItem("克拉拉", 4)
+        self.cha6.addItem("三月七", 5)
+        self.cha6.addItem("娜塔莎", 6)
+        self.cha6.addItem("布洛妮娅", 7)
+        self.cha6.addItem("希儿", 8)
+        self.cha6.addItem("希露瓦", 9)
+        self.cha6.addItem("开拓者·存护", 10)
+        self.cha6.addItem("开拓者·毁灭", 11)
+        self.cha6.addItem("彦卿", 12)
+        self.cha6.addItem("杰帕德", 13)
+        self.cha6.addItem("桑博", 14)
+        self.cha6.addItem("瓦尔特", 15)
+        self.cha6.addItem("白露", 16)
+        self.cha6.addItem("素裳", 17)
+        self.cha6.addItem("艾丝妲", 18)
+        self.cha6.addItem("虎克", 19)
+        self.cha6.addItem("阿兰", 20)
+        self.cha6.addItem("青雀", 21)
+        self.cha6.addItem("黑塔", 22)
+        self.cha7 = QComboBox()
+        self.cha7.addItem("娜塔莎", 0)
+        self.cha7.addItem("丹恒", 1)
+        self.cha7.addItem("佩拉", 2)
+        self.cha7.addItem("停云", 3)
+        self.cha7.addItem("克拉拉", 4)
+        self.cha7.addItem("姬子", 5)
+        self.cha7.addItem("三月七", 6)
+        self.cha7.addItem("布洛妮娅", 7)
+        self.cha7.addItem("希儿", 8)
+        self.cha7.addItem("希露瓦", 9)
+        self.cha7.addItem("开拓者·存护", 10)
+        self.cha7.addItem("开拓者·毁灭", 11)
+        self.cha7.addItem("彦卿", 12)
+        self.cha7.addItem("杰帕德", 13)
+        self.cha7.addItem("桑博", 14)
+        self.cha7.addItem("瓦尔特", 15)
+        self.cha7.addItem("白露", 16)
+        self.cha7.addItem("素裳", 17)
+        self.cha7.addItem("艾丝妲", 18)
+        self.cha7.addItem("虎克", 19)
+        self.cha7.addItem("阿兰", 20)
+        self.cha7.addItem("青雀", 21)
+        self.cha7.addItem("黑塔", 22)
+
+        self.submit_button = QPushButton("确定")
+        self.submit_button.clicked.connect(self.submit_form)
+
+        self.layout.addWidget(self.label1)
+        self.layout.addWidget(self.cha1)
+        self.layout.addWidget(self.label2)
+        self.layout.addWidget(self.cha2)
+        self.layout.addWidget(self.label3)
+        self.layout.addWidget(self.cha3)
+        self.layout.addWidget(self.label4)
+        self.layout.addWidget(self.cha4)
+        self.layout.addWidget(self.label5)
+        self.layout.addWidget(self.cha5)
+        self.layout.addWidget(self.label6)
+        self.layout.addWidget(self.cha6)
+        self.layout.addWidget(self.label7)
+        self.layout.addWidget(self.cha7)
+        self.layout.addWidget(self.submit_button)
+
+    def submit_form(self):
+        self.heros.append(self.cha1.currentText())
+        self.heros.append(self.cha2.currentText())
+        self.heros.append(self.cha3.currentText())
+        self.heros.append(self.cha4.currentText())
+        self.heros.append(self.cha5.currentText())
+        self.heros.append(self.cha6.currentText())
+        self.heros.append(self.cha7.currentText())
         self.accept()
 
 
