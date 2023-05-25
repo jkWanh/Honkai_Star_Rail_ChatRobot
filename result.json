@@ -1,26 +1,14 @@
 [
     {
-        "word": "篡改的野心",
-        "flag": "material"
+        "word": "介绍",
+        "flag": "name"
     },
     {
-        "word": "是",
-        "flag": "v"
+        "word": "一下",
+        "flag": "m"
     },
     {
-        "word": "谁",
-        "flag": "r"
-    },
-    {
-        "word": "的",
-        "flag": "uj"
-    },
-    {
-        "word": "天赋",
-        "flag": "relationship"
-    },
-    {
-        "word": "？",
-        "flag": "x"
+        "word": "停云",
+        "flag": "character"
     }
 ]

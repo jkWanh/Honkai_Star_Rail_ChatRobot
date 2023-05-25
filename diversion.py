@@ -24,27 +24,16 @@ def  diversion(text):
         if flag == 'name':
             print(f"Flag: {flag}, Word: {word}")
             ans = name(text)
-            print(ans)
+
             label, ans = split(ans)
             ans.insert(0, ('label', label))
             newlist = [ans]
             new_lst = [[elem[1] for elem in sublst] for sublst in newlist]
             return  0,new_lst
-
-        elif flag == 'relationship':
-            print(f"Flag: {flag}, Word: {word}")
-            ans = relationship(text)
-            print(ans)
-            return 1,ans
         elif flag == 'twotrue':
-            print(1)
             print(f"Flag: {flag}, Word: {word}")
-            if is_true(text) == True:
-                 ans = "是的"
-                 return ans
-            else :
-                ans = "不是的"
-                return 2,ans
+            return 1, is_true(text)
+
 
 
 

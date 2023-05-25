@@ -1,6 +1,10 @@
+import re
 if __name__ == '__main__':
-    records = "<Record c.name='开拓者·存护'><Record c.name='瓦尔特'><Record c.name='开拓者·毁灭'><Record c.name='姬子'><Record c.name='丹恒'><Record c.name='三月七'>"
 
-    new_lst = [name.split("'")[1] for name in records.split("<Record c.name=")[1:]]
-
-    print(new_lst)
+#record = "<Record path=<Path start=<Node element_id='4:bfe4a058-1be6-45ce-a716-0a2159896c52:1126' labels=frozenset({'Monster'}) properties={'area': '雅利洛-VI', 'icon': 'https://uploadstatic.mihoyo.com/sr-wiki/2023/02/13/1805320/003e409b4cbf7a635f972e9ca3f804c2_3817538098681446797.png', 'name': '永冬灾影', 'find_area': '雅利洛-Ⅵ-边缘通路；雅利洛-Ⅵ-铆钉镇；雅利洛-Ⅵ-残响回廊；雅利洛-Ⅵ-永冬岭；', 'id': 29, 'big_pic': 'https://act-upload.mihoyo.com/sr-wiki/2023/04/23/75216984/18c4f4b0fc12e21343d46bfe7dbef747_686989383343894941.png', 'type': '普通', 'resistance': '冰抗性、冻结抗性', 'desc': '寒潮降临后逡巡在裂界中的虚影。它扭曲地模仿着银鬃铁卫的身形，其甲胄着装与贝洛伯格的战士们同样严整，头颅缺被没有五官的冰棱所取代。  战斗中永冬灾影会挥舞冰造的斧刃，延缓敌人的行动。'}> end=<Node element_id='4:bfe4a058-1be6-45ce-a716-0a2159896c52:1203' labels=frozenset({'Material'})properties={'name': '冰之芯', 'icon': 'https://uploadstatic.mihoyo.com/sr-wiki/2022/12/06/75216984/3b042f3caff7ec3b29a96ff4f8e54db0_8141600710612487730.png', 'id': 493, 'type': '合成材料', 'desc': '自星空坠落的碎冰。从特殊封存的容器拿出时，低温凝结的水汽就像冬日里的叹息。「将雪花放大100倍，欣赏大自然的巨斧神工。」', 'quality': '2星'}> size=1>>"
+    record =" <Record path=<Path start=<Node element_id='4:bfe4a058-1be6-45ce-a716-0a2159896c52:1126' labels=frozenset({'Monster'}) properties={'area': '雅利洛-VI', 'icon': 'https://uploadstatic.mihoyo.com/sr-wiki/2023/02/13/1805320/003e409b4cbf7a635f972e9ca3f804c2_3817538098681446797.png', 'name': '永冬灾影', 'find_area': '雅利洛-Ⅵ-边缘通路；雅利洛-Ⅵ-铆钉镇；雅利洛-Ⅵ-残响回廊；雅利洛-Ⅵ-永冬岭；', 'id': 29, 'big_pic': 'https://act-upload.mihoyo.com/sr-wiki/2023/04/23/75216984/18c4f4b0fc12e21343d46bfe7dbef747_686989383343894941.png', 'type': '普通', 'resistance': '冰抗性、冻结抗性', 'desc': '寒潮降临后逡巡在裂界中的虚影。它扭曲地模仿着银鬃铁卫的身形，其甲胄着装与贝洛伯格的战士们同样严整，头颅缺被没有五官的冰棱所取代。  战斗中永冬灾影会挥舞冰造的斧刃，延缓敌人的行动。'}> end=<Node element_id='4:bfe4a058-1be6-45ce-a716-0a2159896c52:1203' labels=frozenset({'Material'}) properties={'name': '冰之芯', 'icon': 'https://uploadstatic.mihoyo.com/sr-wiki/2022/12/06/75216984/3b042f3caff7ec3b29a96ff4f8e54db0_8141600710612487730.png', 'id': 493, 'type': '合成材料', 'desc': '自星空坠落的碎冰。\n从特殊封存的容器拿出时，低温凝结的水汽就像冬日里的叹息。\n「将雪花放大100倍，欣赏大自然的巨斧神工。」', 'quality': '2星'}> size=1>>"
+    # 使用字符串切片截取 end 结点后面的字符串
+    end_str = str(record.end_node())
+    end_index = end_str.find('end=<Node')
+    end_str = end_str[end_index:]
+    print(end_str)

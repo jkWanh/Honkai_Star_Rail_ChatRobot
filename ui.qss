@@ -1,11 +1,24 @@
 QMainWindow{
-/*background-color: rgb(75, 173, 238); /*背景色*/
-background: url(./static/tange.png);  /* 添加背景图片，不可改变照片大小 */
+/*background-color: rgb(187, 219, 186); /*背景色*/
+background: url(./static/background.jpeg);  /* 添加背景图片，不可改变照片大小 */
 background-position:top center;   /* 设置背景图片位置 */
 /*background-repeat: no-repeat;
 background-position: center;*/
 }
 
+QGroupBox {
+    font-weight: bold;
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 6px;
+    margin-top: 6px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 3px;
+}
 QPushButton#pushButton
 {
 	background-color: rgb(243,108,33); /*背景色*/
@@ -37,18 +50,21 @@ QPushButton#pushButton_4
 	min-width:2em;
 	color:white; /* 字体颜色 */
 }
-/* 鼠标经过改变按钮颜色 */
-QPushButton:hover
+QPushButton#pushButton:hover
 {
-	background-color: rgb(0, 150, 0);
+	background-color: rgb(	255, 165, 0);
+}
+/* 鼠标经过改变按钮颜色 */
+QPushButton#more:hover
+{
+	background-color: rgb(	191, 191, 191);
 }
 
-QPushButton#pushButton_3
+QPushButton#more
 {
-  qproperty-icon: url(./static/avatar.png);
-  qproperty-iconSize: 140px 140px;
-  border-radius:25px;
+	border: 1px orange;
 }
+
 
 QLineEdit
 {
@@ -105,23 +121,21 @@ QTabBar::tab
 }
 #label_6
 {
-    color: white;
+    color: black;
     font-size: 26px;
     font-family: Arial;
-    font-weight: bold;
     alignment: center;
 }
 #label_7
 {
-    color: white;
+    color: black;
     font-size: 26px;
     font-family: Arial;
-    font-weight: bold;
     alignment: center;
 }
 #label_8
 {
-    color: white;
+    color: black;
     font-size: 26px;
     font-family: Arial;
     font-weight: bold;
@@ -135,6 +149,5 @@ QTabBar::tab
     font-weight: bold;
     alignment: center;
 }
-
 
 

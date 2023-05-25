@@ -1,6 +1,6 @@
 import os
 import openai
-
+from neo4j import GraphDatabase
 key1 = "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"
 key2 = "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"
 
@@ -33,7 +33,18 @@ def GPT(question):
     except Exception as exc:
         print(exc)
         return None
-
+def chaxun(query):
+    # 连接到Neo4j数据库
+    uri = "neo4j+s://1d778504.databases.neo4j.io"
+    driver = GraphDatabase.driver(uri, auth=("neo4j", "FN7ZTm3pYbBPQU44creN-H5P8_LvzAlIa284CpkwdIM"))
+    record_str =''
+    with driver.session() as session:
+        result = session.run(query)
+        # 遍历结果
+        for record in result:
+            record_str += str(record)
+            print(record)
+        return record_str
 
 if __name__ == "__main__":
     print(GPT("三月七突破60级需要什么材料"))
