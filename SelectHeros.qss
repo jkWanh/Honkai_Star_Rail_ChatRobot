@@ -1,0 +1,22 @@
+QDialog
+{
+    background-color: rgb(187, 219, 186); /*背景色*/
+}
+QLabel
+{
+    font:  bold 22px;     /* 字体大小 */
+}
+QPushButton
+{
+    border-radius:7px; /* 边界圆滑 */
+  width:110px;
+  height:45px;
+  font:  bold 35px;
+  background-color: rgb(191, 191, 191); /*背景色*/
+}
+QComboBox
+{
+    border-radius: 7px;
+    font: bold 30px;
+    background-color:rgb(241, 235, 199);
+}
