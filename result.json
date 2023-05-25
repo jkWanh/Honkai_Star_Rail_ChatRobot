@@ -1,14 +1,14 @@
 [
     {
-        "word": "介绍",
-        "flag": "name"
+        "word": "v",
+        "flag": "eng"
     },
     {
-        "word": "一下",
+        "word": "与",
+        "flag": "p"
+    },
+    {
+        "word": "一个",
         "flag": "m"
-    },
-    {
-        "word": "停云",
-        "flag": "character"
     }
 ]

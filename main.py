@@ -78,6 +78,11 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         选择常用英雄
         """
         dialog = SelectHeroDialog()
+        dialog.setWindowIcon(QIcon("./static/icon.png"))
+        # 加载QSS样式表
+        style = 'SelectHeros.qss'
+        sheet = QSSLoader.read_qss_file(style)
+        dialog.setStyleSheet(sheet)
         if dialog.exec_() == QDialog.Accepted:
             self.heros = dialog.heros
             self.set_heros()
@@ -107,6 +112,8 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
 
             # 生成回答
             answer, sign = self.Processing(search_text)
+            if answer is None:
+                answer = ['']
             self.add_record("Robot", answer, True, 0, sign)
         else:
             QMessageBox.information(self, "提示", "不能发送空消息！", QMessageBox.Ok)
@@ -286,6 +293,15 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
                         itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
                 case 5:  # 显示gpt回答
                     pass
+                case 6:
+                    ansLabel = QLabel("不好意思，查询失败了呢，请再试一试")
+                    ansLabel.setWordWrap(True)  # 设置自动换行
+                    ansLabel.setStyleSheet('font-size: 20px; color: #333333;')
+                    ansLabel.setFrameShape(QFrame.Panel)
+                    ansLabel.setFrameShadow(QFrame.Sunken)
+                    itemLayout.addWidget(ansLabel)
+                    itemWidget.setStyleSheet('background-color: #cde6c7; border-radius: 10px; margin: 5px;')
+
         else:
             # 添加消息文本控件
             questionLabel = QLabel(content)
@@ -315,7 +331,7 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         match label:
             case "Character":
                 text += "角色：" + mess_list[4] + "\n\n"
-                text += "属性：" + mess_list[7] + "\n\n品质：" + mess_list[6] + "\n\n"
+                text += "属性：" + mess_list[8] + "\n\n品质：" + mess_list[7] + "\n\n"
                 text += "命运：" + mess_list[1] + "\n\n"
                 text += "职业：" + mess_list[2] + "\n\n"
                 text += "派别：" + mess_list[3]
@@ -410,10 +426,18 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         修改个人信息
         """
         dialog = FormDialog()
+        # 加载QSS样式表
+        dialog.setWindowIcon(QIcon("./static/icon.png"))
+        style = 'EditInfo.qss'
+        sheet = QSSLoader.read_qss_file(style)
+        dialog.setStyleSheet(sheet)
         if dialog.exec_() == QDialog.Accepted:
-            self.label_6.setText(dialog.name)
-            self.label_7.setText(dialog.UID)
-            self.label_8.setText(dialog.level)
+            if dialog.name != "":
+                self.label_6.setText(dialog.name)
+            if dialog.UID != "":
+                self.label_7.setText(dialog.UID)
+            if dialog.level != "":
+                self.label_8.setText(dialog.level)
             if dialog.file_path is not None:
                 try:
                     os.remove("./static/avatar.png")
@@ -525,6 +549,7 @@ class SelectHeroDialog(QDialog):
         super().__init__(parent)
         self.setWindowTitle("选择常用角色")
         self.layout = QVBoxLayout()
+        self.setFixedSize(500, 600)
         self.setLayout(self.layout)
         self.heros = []
 
