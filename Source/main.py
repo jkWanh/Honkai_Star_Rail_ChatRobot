@@ -88,7 +88,6 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
             print("Form submission canceled")
 
     def hero_detail(self, hero_id):
-        QMessageBox.information(self, "提示", "%s" % self.heros[hero_id], QMessageBox.Ok)
         content = ["pass"]
         self.add_record("Robot", content, True, 0, 4)
 
