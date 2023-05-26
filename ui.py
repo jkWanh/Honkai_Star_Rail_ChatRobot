@@ -232,7 +232,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "聊天机器人"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Galaxy Findie"))
         self.pushButton.setText(_translate("MainWindow", "修改信息"))
         self.pushButton_2.setText(_translate("MainWindow", "发送"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "数据库机器人"))
