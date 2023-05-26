@@ -175,132 +175,133 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
 
         # 判断提问或是回答
         if ans:
-            match sign:
-                case 0:
-                    for message in content:
-                        text, url = self.TextShow(message, message[0])
-                        # 添加消息文本控件
-                        answerLabel = QLabel(text)
-                        answerLabel.setWordWrap(True)  # 设置自动换行
-                        answerLabel.setStyleSheet('font-size: 20px; color: #333333;')
-                        answerLabel.setFrameShape(QFrame.Panel)
-                        answerLabel.setFrameShadow(QFrame.Sunken)
-                        # 放入图片标签
-                        try:
-                            response = requests.get(url)
-                            image_data = response.content
-                            # 将图片数据加载到QPixmap中
-                            pixmap = QPixmap()
-                            pixmap.loadFromData(image_data)
-                        except Exception as exc:
-                            print(exc)
-                            pixmap = QPixmap("./static/avatar.png")
-                            # 设置QLabel的图片
-                        iconlabel = QLabel()
-                        iconlabel.setPixmap(pixmap)
-                        iconlabel.setScaledContents(True)  # 设置图片自适应大小
-                        iconlabel.setFixedSize(280, 280)
-                        # 创建水平布局
-                        displayLayout = QHBoxLayout()
-                        displayLayout.addWidget(iconlabel)
-                        spacer = QSpacerItem(30, 30)
-                        displayLayout.addItem(spacer)
-                        displayLayout.addWidget(answerLabel)
+            if sign == 0:
+                for message in content:
+                    text, url = self.TextShow(message, message[0])
+                    # 添加消息文本控件
+                    answerLabel = QLabel(text)
+                    answerLabel.setWordWrap(True)  # 设置自动换行
+                    answerLabel.setStyleSheet('font-size: 20px; color: #333333;')
+                    answerLabel.setFrameShape(QFrame.Panel)
+                    answerLabel.setFrameShadow(QFrame.Sunken)
+                    # 放入图片标签
+                    try:
+                        response = requests.get(url)
+                        image_data = response.content
+                        # 将图片数据加载到QPixmap中
+                        pixmap = QPixmap()
+                        pixmap.loadFromData(image_data)
+                    except Exception as exc:
+                        print(exc)
+                        pixmap = QPixmap("./static/avatar.png")
+                        # 设置QLabel的图片
+                    iconlabel = QLabel()
+                    iconlabel.setPixmap(pixmap)
+                    iconlabel.setScaledContents(True)  # 设置图片自适应大小
+                    iconlabel.setFixedSize(280, 280)
+                    # 创建水平布局
+                    displayLayout = QHBoxLayout()
+                    displayLayout.addWidget(iconlabel)
+                    spacer = QSpacerItem(30, 30)
+                    displayLayout.addItem(spacer)
+                    displayLayout.addWidget(answerLabel)
 
-                        itemLayout.addLayout(displayLayout)
-                        itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
-                case 1:
-                    for message in content:
-                        text = message[0]
-                        url = message[1]
-                        # 添加消息文本控件
-                        answerLabel = QLabel(text)
-                        answerLabel.setWordWrap(True)  # 设置自动换行
-                        answerLabel.setStyleSheet('font-size: 20px; color: #333333;')
-                        answerLabel.setFrameShape(QFrame.Panel)
-                        answerLabel.setFrameShadow(QFrame.Sunken)
-                        # 放入图片标签
-                        try:
-                            response = requests.get(url)
-                            image_data = response.content
-                            # 将图片数据加载到QPixmap中
-                            pixmap = QPixmap()
-                            pixmap.loadFromData(image_data)
-                        except Exception as exc:
-                            print(exc)
-                            pixmap = QPixmap("./static/avatar.png")
-                            # 设置QLabel的图片
-                        iconlabel = QLabel()
-                        iconlabel.setPixmap(pixmap)
-                        iconlabel.setScaledContents(True)  # 设置图片自适应大小
-                        iconlabel.setFixedSize(80, 80)
-                        # 创建水平布局
-                        displayLayout = QHBoxLayout()
-                        displayLayout.addWidget(iconlabel)
-                        spacer = QSpacerItem(10, 30)
-                        displayLayout.addItem(spacer)
-                        displayLayout.addWidget(answerLabel)
+                    itemLayout.addLayout(displayLayout)
+                    itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
+            elif sign == 1:
+                for message in content:
+                    text = message[0]
+                    url = message[1]
+                    # 添加消息文本控件
+                    answerLabel = QLabel(text)
+                    answerLabel.setWordWrap(True)  # 设置自动换行
+                    answerLabel.setStyleSheet('font-size: 20px; color: #333333;')
+                    answerLabel.setFrameShape(QFrame.Panel)
+                    answerLabel.setFrameShadow(QFrame.Sunken)
+                    # 放入图片标签
+                    try:
+                        response = requests.get(url)
+                        image_data = response.content
+                        # 将图片数据加载到QPixmap中
+                        pixmap = QPixmap()
+                        pixmap.loadFromData(image_data)
+                    except Exception as exc:
+                        print(exc)
+                        pixmap = QPixmap("./static/avatar.png")
+                        # 设置QLabel的图片
+                    iconlabel = QLabel()
+                    iconlabel.setPixmap(pixmap)
+                    iconlabel.setScaledContents(True)  # 设置图片自适应大小
+                    iconlabel.setFixedSize(80, 80)
+                    # 创建水平布局
+                    displayLayout = QHBoxLayout()
+                    displayLayout.addWidget(iconlabel)
+                    spacer = QSpacerItem(10, 30)
+                    displayLayout.addItem(spacer)
+                    displayLayout.addWidget(answerLabel)
 
-                        itemLayout.addLayout(displayLayout)
-                        itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
-                case 2:  # 只显示图片
-                    for url in content:
-                        # 放入图片标签
-                        try:
-                            response = requests.get(url)
-                            image_data = response.content
-                            # 将图片数据加载到QPixmap中
-                            pixmap = QPixmap()
-                            pixmap.loadFromData(image_data)
-                        except Exception as exc:
-                            print(exc)
-                            pixmap = QPixmap("./static/avatar.png")
-                            # 设置QLabel的图片
-                        iconlabel = QLabel()
-                        iconlabel.setPixmap(pixmap)
-                        iconlabel.setScaledContents(True)  # 设置图片自适应大小
-                        iconlabel.setFixedSize(300, 300)
-                        itemLayout.addWidget(iconlabel)
-                        itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
-                case 3:  # 只显示文字
-                    for answer in content:
-                        # 添加消息文本控件
-                        ansLabel = QLabel(answer)
-                        ansLabel.setWordWrap(True)  # 设置自动换行
-                        ansLabel.setStyleSheet('font-size: 20px; color: #333333;')
-                        ansLabel.setFrameShape(QFrame.Panel)
-                        ansLabel.setFrameShadow(QFrame.Sunken)
-                        itemLayout.addWidget(ansLabel)
-                        itemWidget.setStyleSheet('background-color: #cde6c7; border-radius: 10px; margin: 5px;')
-                case 4:  # 显示角色的攻略
-                    for url in content:
-                        # 放入图片标签
-                        try:
-                            response = requests.get(url)
-                            image_data = response.content
-                            # 将图片数据加载到QPixmap中
-                            pixmap = QPixmap()
-                            pixmap.loadFromData(image_data)
-                        except Exception as exc:
-                            print(exc)
-                            pixmap = QPixmap("./static/avatar.png")
-                            # 设置QLabel的图片
-                        iconlabel = QLabel()
-                        iconlabel.setPixmap(pixmap)
-                        iconlabel.setScaledContents(True)  # 设置图片自适应大小
-                        iconlabel.setFixedSize(1000, 800)
-                        itemLayout.addWidget(iconlabel)
-                        itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
-                case 5:  # 显示gpt回答
-                    pass
-                case 6:
-                    ansLabel = QLabel("不好意思，查询失败了呢，请再试一试,你可以这样提问：查询一下 %s 的信息",self.exception())
+                    itemLayout.addLayout(displayLayout)
+                    itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
+            elif sign ==  2:  # 只显示图片
+                for url in content:
+                    # 放入图片标签
+                    try:
+                        response = requests.get(url)
+                        image_data = response.content
+                        # 将图片数据加载到QPixmap中
+                        pixmap = QPixmap()
+                        pixmap.loadFromData(image_data)
+                    except Exception as exc:
+                        print(exc)
+                        pixmap = QPixmap("./static/avatar.png")
+                        # 设置QLabel的图片
+                    iconlabel = QLabel()
+                    iconlabel.setPixmap(pixmap)
+                    iconlabel.setScaledContents(True)  # 设置图片自适应大小
+                    iconlabel.setFixedSize(300, 300)
+                    itemLayout.addWidget(iconlabel)
+                    itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
+            elif sign ==  3:  # 只显示文字
+                for answer in content:
+                    # 添加消息文本控件
+                    ansLabel = QLabel(answer)
                     ansLabel.setWordWrap(True)  # 设置自动换行
                     ansLabel.setStyleSheet('font-size: 20px; color: #333333;')
                     ansLabel.setFrameShape(QFrame.Panel)
                     ansLabel.setFrameShadow(QFrame.Sunken)
                     itemLayout.addWidget(ansLabel)
                     itemWidget.setStyleSheet('background-color: #cde6c7; border-radius: 10px; margin: 5px;')
+            elif sign ==  4:  # 显示角色的攻略
+                for url in content:
+                    # 放入图片标签
+                    try:
+                        response = requests.get(url)
+                        image_data = response.content
+                        # 将图片数据加载到QPixmap中
+                        pixmap = QPixmap()
+                        pixmap.loadFromData(image_data)
+                    except Exception as exc:
+                        print(exc)
+                        pixmap = QPixmap("./static/avatar.png")
+                        # 设置QLabel的图片
+                    iconlabel = QLabel()
+                    iconlabel.setPixmap(pixmap)
+                    iconlabel.setScaledContents(True)  # 设置图片自适应大小
+                    iconlabel.setFixedSize(1000, 800)
+                    itemLayout.addWidget(iconlabel)
+                    itemWidget.setStyleSheet('background-color: #afdfe4; border-radius: 10px; margin: 5px;')
+            elif sign == 5:  # 显示gpt回答
+                pass
+            else:
+                exception_txt = "不好意思，查询失败了呢，请再试一试,你可以这样提问:" + self.exception()
+                ansLabel = QLabel()
+                ansLabel.setText(exception_txt)
+                ansLabel.setWordWrap(True)  # 设置自动换行
+                ansLabel.setStyleSheet('font-size: 20px; color: #333333;')
+                ansLabel.setFrameShape(QFrame.Panel)
+                ansLabel.setFrameShadow(QFrame.Sunken)
+                itemLayout.addWidget(ansLabel)
+                itemWidget.setStyleSheet('background-color: #cde6c7; border-radius: 10px; margin: 5px;')
 
         else:
             # 添加消息文本控件
@@ -328,32 +329,33 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         将从数据库中获得的，经过预处理的列表数据加以充实
         """
         text = ""
-        match label:
-            case "Character":
-                text += "角色：" + mess_list[4] + "\n\n"
-                text += "属性：" + mess_list[8] + "\n\n品质：" + mess_list[7] + "\n\n"
-                text += "命运：" + mess_list[1] + "\n\n"
-                text += "职业：" + mess_list[2] + "\n\n"
-                text += "派别：" + mess_list[3]
-                url = mess_list[5]
-                print(url)
-                return text, url
-            case "Monster":
-                text += "怪物名：" + mess_list[3] + "\n\n"
-                text += "地域：" + mess_list[1] + "\n\n"
-                text += "发现地：" + mess_list[4] + "\n\n"
-                text += "类型：" + mess_list[6] + "\n\n"
-                text += "抵抗：" + mess_list[7] + "\n\n"
-                text += "描述：" + mess_list[8]
-                url = mess_list[5]
-                return text, url
-            case "Material":
-                text += "名称：" + mess_list[1] + "\n\n"
-                text += "类型：" + mess_list[3] + "\n\n"
-                text += "品质：" + mess_list[5] + "\n\n"
-                text += "描述：" + mess_list[4]
-                url = mess_list[2]
-                return text, url
+        if label ==  "Character":
+            text += "角色：" + mess_list[4] + "\n\n"
+            text += "属性：" + mess_list[8] + "\n\n品质：" + mess_list[7] + "\n\n"
+            text += "命运：" + mess_list[1] + "\n\n"
+            text += "职业：" + mess_list[2] + "\n\n"
+            text += "派别：" + mess_list[3]
+            url = mess_list[5]
+            print(url)
+            return text, url
+        elif label ==  "Monster":
+            text += "怪物名：" + mess_list[3] + "\n\n"
+            text += "地域：" + mess_list[1] + "\n\n"
+            text += "发现地：" + mess_list[4] + "\n\n"
+            text += "类型：" + mess_list[6] + "\n\n"
+            text += "抵抗：" + mess_list[7] + "\n\n"
+            text += "描述：" + mess_list[8]
+            url = mess_list[5]
+            return text, url
+        elif label == "Material":
+            text += "名称：" + mess_list[1] + "\n\n"
+            text += "类型：" + mess_list[3] + "\n\n"
+            text += "品质：" + mess_list[5] + "\n\n"
+            text += "描述：" + mess_list[4]
+            url = mess_list[2]
+            return text, url
+        else:
+            pass
 
     def copyMessage(self, message):
         """
@@ -366,18 +368,18 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         return ans, flag
         pass
     
-    def exception():
+    def exception(self):
         with open('result.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
             # 提取 "flag" 和 "word" 字段的值
             for item in data:
                 flag = item['flag']
                 word = item['word']
-                if flag == 'character'& flag == 'material' & flag == 'monster':
-                    return word
-                else :
-                    word = "查询三月七的信息"
-                    return word
+                if flag == 'character' or  flag == 'material' or flag == 'monster':
+                    txt = "介绍一下" + word
+                    return txt
+            word = "介绍一下三月七"
+            return word
 
                             
     def Processing(self, search_text):
