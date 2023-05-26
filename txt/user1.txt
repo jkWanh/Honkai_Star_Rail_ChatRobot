@@ -632,3 +632,5 @@ name id
 籍贯 1 jiguan
 商店 1 shangdain
 灵魂 1 linghun
+突破 1 twotrue
+查询 1 name
