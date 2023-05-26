@@ -1,8 +1,8 @@
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIcon, QPixmap
 
-from Honkai_Star_Rail_ChatRobot.Tools import CircleImage, SelectHeroDialog, QSSLoader
-from Honkai_Star_Rail_ChatRobot.diversion import diversion, clause
+from Tools import CircleImage, SelectHeroDialog, QSSLoader, FormDialog
+from diversion import diversion, clause
 from ui import *
 import pyperclip
 import requests
