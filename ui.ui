@@ -488,6 +488,7 @@
    <zorder>label</zorder>
    <zorder>groupBox</zorder>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -497,23 +498,27 @@
      <height>26</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu_F">
-    <property name="title">
-     <string>文件</string>
-    </property>
-    <addaction name="action"/>
-    <addaction name="action_GPT"/>
-   </widget>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>账户</string>
+     <string>帮助</string>
     </property>
-    <addaction name="action_2"/>
+    <widget class="QMenu" name="menu_3">
+     <property name="title">
+      <string>软件版本</string>
+     </property>
+     <addaction name="actionV_1_0_0"/>
+    </widget>
+    <widget class="QMenu" name="menu_4">
+     <property name="title">
+      <string>联系我们</string>
+     </property>
+     <addaction name="actionli_ji_dong_sjtu_edu_cn"/>
+    </widget>
+    <addaction name="menu_3"/>
+    <addaction name="menu_4"/>
    </widget>
-   <addaction name="menu_F"/>
    <addaction name="menu"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="action">
    <property name="text">
     <string>导出Robot查询记录</string>
@@ -527,6 +532,16 @@
   <action name="action_GPT">
    <property name="text">
     <string>导出GPT查询内容</string>
+   </property>
+  </action>
+  <action name="actionV_1_0_0">
+   <property name="text">
+    <string>V 1.0.0</string>
+   </property>
+  </action>
+  <action name="actionli_ji_dong_sjtu_edu_cn">
+   <property name="text">
+    <string>li.ji.dong@sjtu.edu.cn</string>
    </property>
   </action>
  </widget>

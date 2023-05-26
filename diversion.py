@@ -33,12 +33,7 @@ def  diversion(text):
         elif flag == 'twotrue':
             print(f"Flag: {flag}, Word: {word}")
             return 1, is_true(text)
-        else :
-            return 6,6
-
-if __name__ == '__main__':
-    text = input("请输入：")
-    diversion(text)
+    return 6, 6
 
 
 

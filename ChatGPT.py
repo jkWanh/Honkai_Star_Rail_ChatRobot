@@ -1,6 +1,7 @@
 import os
 import openai
 from neo4j import GraphDatabase
+
 key1 = "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"
 key2 = "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"
 background1 = '''我配置了一个图数据库用于设计聊天机器人，以下是数据库的一些信息
@@ -34,24 +35,27 @@ Sales（在Material和Store之间）
 '''
 background2 = '''我设计了一个图数据库的聊天机器人，请你根据数据库的查询结果和用户的问题给出用户回答。'''
 
+
 def get_ask_message(question, background=background1):
     messages = [
-                {"role": "system",
-                 "content": background},
-                {"role": "user", "content": question}]
+        {"role": "system",
+         "content": background},
+        {"role": "user", "content": question}]
     return messages
 
+
 def get_answer(question, result, background=background2):
-    messages = [{"role": "system","content": background},
+    messages = [{"role": "system", "content": background},
                 {"role": "user", "content": question},
                 {"role": "system", "content": result}]
     return messages
+
 
 def GPT(messages):
     """
     根据messages指导ChatGPT让其生成想要的回答
     """
-    openai.api_key = os.getenv("gpt_key")   # 获得API—key
+    openai.api_key = os.getenv("gpt_key")  # 获得API—key
     if openai.api_key is None:
         openai.api_key = key1
     try:
@@ -68,11 +72,13 @@ def GPT(messages):
     except Exception as exc:
         print(exc)
         return None
+
+
 def chaxun(query):
     # 连接到Neo4j数据库
     uri = "neo4j+s://1d778504.databases.neo4j.io"
     driver = GraphDatabase.driver(uri, auth=("neo4j", "FN7ZTm3pYbBPQU44creN-H5P8_LvzAlIa284CpkwdIM"))
-    record_str =[]
+    record_str = []
     with driver.session() as session:
         result = session.run(query)
         # 遍历结果
@@ -80,14 +86,15 @@ def chaxun(query):
             record_str.append(str(record))
         return str(record_str)
 
-if __name__ == "__main__":
-    question = input("请输入问题：")
+
+def gpt(question):
     ask_message = get_ask_message(question=question)
     query = GPT(messages=ask_message)
     print(query)
-    
+
     result = chaxun(query)
     print(result)
     answer_messege = get_answer(question=question, result=result)
     answer = GPT(messages=answer_messege)
     print(answer)
+    return answer
