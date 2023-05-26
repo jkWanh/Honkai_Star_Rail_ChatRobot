@@ -294,7 +294,7 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
                 case 5:  # 显示gpt回答
                     pass
                 case 6:
-                    ansLabel = QLabel("不好意思，查询失败了呢，请再试一试")
+                    ansLabel = QLabel("不好意思，查询失败了呢，请再试一试,你可以这样提问：查询一下 %s 的信息",self.exception())
                     ansLabel.setWordWrap(True)  # 设置自动换行
                     ansLabel.setStyleSheet('font-size: 20px; color: #333333;')
                     ansLabel.setFrameShape(QFrame.Panel)
@@ -365,7 +365,21 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         flag, ans = diversion(search_text)
         return ans, flag
         pass
+    
+    def exception():
+        with open('result.json', 'r', encoding='utf-8') as file:
+            data = json.load(file)
+            # 提取 "flag" 和 "word" 字段的值
+            for item in data:
+                flag = item['flag']
+                word = item['word']
+                if flag == 'character'& flag == 'material' & flag == 'monster':
+                    return word
+                else :
+                    word = "查询三月七的信息"
+                    return word
 
+                            
     def Processing(self, search_text):
         ans, sign = self.Process(search_text)
         print(ans)
