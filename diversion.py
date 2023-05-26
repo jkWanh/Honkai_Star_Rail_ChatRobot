@@ -36,7 +36,9 @@ def  diversion(text):
         else :
             return 6,6
 
-
+if __name__ == '__main__':
+    text = input("请输入：")
+    diversion(text)
 
 
 
