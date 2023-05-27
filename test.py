@@ -26,7 +26,7 @@ class TestFunctions(unittest.TestCase):
     def test_clause(self):
         text = "请介绍一下三月七"
         clause(text)
-        with open('result.json', 'r', encoding='utf-8') as file:
+        with open('txt/result.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
         print(data)
         self.assertIsNotNone(data)

@@ -11,7 +11,7 @@ def clause(text):
     for word, flag in words:
         result.append({'word': word, 'flag': flag})
 
-    with open('result.json', 'w', encoding='utf-8') as file:
+    with open('txt/result.json', 'w', encoding='utf-8') as file:
         json.dump(result, file, ensure_ascii=False,indent=4)
 #单节点查询函数
 def chaxunname(attribute,name):
@@ -32,7 +32,7 @@ def chaxunname(attribute,name):
 def  name(text):
     clause(text)
     # 读取 JSON 文件
-    with open('result.json', 'r', encoding='utf-8') as file:
+    with open('txt/result.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
    # 提取 "flag" 和 "word" 字段的值
     for item in data:
@@ -76,7 +76,7 @@ def chaxunis_true(first_letter1,first_letter2,flag1,flag2,word1,word2,n):
 def is_true(text):
     clause(text)
     # 读取 JSON 文件
-    with open('result.json', 'r', encoding='utf-8') as file:
+    with open('txt/result.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
    # 提取 "flag" 和 "word" 字段的值
     first_letter_array = []

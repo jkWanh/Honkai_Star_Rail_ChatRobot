@@ -80,7 +80,7 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         dialog = SelectHeroDialog()
         dialog.setWindowIcon(QIcon("./static/icon.png"))
         # 加载QSS样式表
-        style = 'SelectHeros.qss'
+        style = './Qss/SelectHeros.qss'
         sheet = QSSLoader.read_qss_file(style)
         dialog.setStyleSheet(sheet)
         if dialog.exec_() == QDialog.Accepted:
@@ -377,7 +377,7 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         return ans, flag
 
     def exception(self):
-        with open('result.json', 'r', encoding='utf-8') as file:
+        with open('txt/result.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
             # 提取 "flag" 和 "word" 字段的值
             for item in data:
@@ -395,7 +395,7 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         print(ans)
         clause(search_text)
         # 读取 JSON 文件
-        with open('result.json', 'r', encoding='utf-8') as file:
+        with open('txt/result.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
             # 提取 "flag" 和 "word" 字段的值
             for item in data:
@@ -442,7 +442,7 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         for word, flag in words:
             result.append({'word': word, 'flag': flag})
 
-        with open('result.json', 'w', encoding='utf-8') as file:
+        with open('txt/result.json', 'w', encoding='utf-8') as file:
             json.dump(result, file, ensure_ascii=False, indent=4)
 
     def EditInfo(self):
@@ -452,7 +452,7 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
         dialog = FormDialog()
         # 加载QSS样式表
         dialog.setWindowIcon(QIcon("./static/icon.png"))
-        style = 'EditInfo.qss'
+        style = './Qss/EditInfo.qss'
         sheet = QSSLoader.read_qss_file(style)
         dialog.setStyleSheet(sheet)
         if dialog.exec_() == QDialog.Accepted:
