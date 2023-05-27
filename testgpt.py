@@ -1,7 +1,8 @@
 import openai
 
 # 设置 OpenAI API 密钥
-openai.api_key = "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"
+key1 = "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"
+openai.api_key = key1
 def test_gpt_connection():
     try:
         response = openai.Completion.create(

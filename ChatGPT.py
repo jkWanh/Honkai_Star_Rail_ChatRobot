@@ -91,10 +91,12 @@ def gpt(question):
     ask_message = get_ask_message(question=question)
     query = GPT(messages=ask_message)
     # print(query)
-
-    result = chaxun(query)
+    if query is None:
+        return "无法连接到ChatGPT，请检查您的网络与API-key配置"
+    else:
+        result = chaxun(query)
     # print(result)
-    answer_messege = get_answer(question=question, result=result)
-    answer = GPT(messages=answer_messege)
+        answer_messege = get_answer(question=question, result=result)
+        answer = GPT(messages=answer_messege)
     # print(answer)
     return answer
