@@ -1,9 +1,13 @@
 from neo4j import GraphDatabase
 import json
 from tqdm import tqdm
-# 连接到Neo4j数据库
+‘’‘
+如此示例连接到Neo4j数据库，请根据实际使用的目标数据库替换URL、用户名和密码
 uri = "neo4j+s://1d778504.databases.neo4j.io"
 driver = GraphDatabase.driver(uri, auth=("neo4j", "FN7ZTm3pYbBPQU44creN-H5P8_LvzAlIa284CpkwdIM"))
+’‘’
+uri = ""
+driver = GraphDatabase.driver(uri, auth=("", ""))
 
 # 打开JSON文件
 with open('DB_query/db_light_cones.py', 'r') as f:
