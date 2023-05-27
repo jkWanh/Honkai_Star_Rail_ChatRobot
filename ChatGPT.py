@@ -33,7 +33,7 @@ Sales（在Material和Store之间）
 [store:'商店「光锥呈现」', '⿊塔的商店', '宝饵堂', '杂货⼩摊', '三余书肆', '杂货⼩摊', '不夜候', '售货机','⼩吃摊', '小吃摊', '售货机', '书商', '行政区商店', '卖报⼈', '赎珠阁', '空间站[⿊塔]','地底商店']
 接下来我将模拟用户提出问题，请你生成查询语句"
 '''
-background2 = '''我设计了一个图数据库的聊天机器人，请你根据数据库的查询结果和用户的问题给出用户回答。'''
+background2 = '''我设计了一个基于图数据库的崩坏：星穹铁道聊天机器人，请你根据数据库的查询结果和用户的问题给出用户回答。'''
 
 
 def get_ask_message(question, background=background1):
@@ -90,11 +90,11 @@ def chaxun(query):
 def gpt(question):
     ask_message = get_ask_message(question=question)
     query = GPT(messages=ask_message)
-    print(query)
+    # print(query)
 
     result = chaxun(query)
-    print(result)
+    # print(result)
     answer_messege = get_answer(question=question, result=result)
     answer = GPT(messages=answer_messege)
-    print(answer)
+    # print(answer)
     return answer
