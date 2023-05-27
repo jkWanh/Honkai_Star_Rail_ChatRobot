@@ -1,6 +1,3 @@
-import jieba
-import jieba.posseg as pseg
-import json
 from query import *
 from stringsplit import  *
 def clause(text):
@@ -24,7 +21,8 @@ def  diversion(text):
         if flag == 'name':
             print(f"Flag: {flag}, Word: {word}")
             ans = name(text)
-
+            if ans is None:
+                return 6,6
             label, ans = split(ans)
             ans.insert(0, ('label', label))
             newlist = [ans]
@@ -32,8 +30,10 @@ def  diversion(text):
             return  0,new_lst
         elif flag == 'twotrue':
             print(f"Flag: {flag}, Word: {word}")
-            return 1, is_true(text)
-    return 6, 6
+            ans = is_true(text)
+            if ans == 6:
+                return 6,6
+            return 1,ans
 
 
 

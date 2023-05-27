@@ -130,8 +130,11 @@ def is_true(text):
             flag_array.append('Store')
             word_array.append(word)
     n = 2
-    ans = chaxunis_true(first_letter_array[0],first_letter_array[1],flag_array[0],flag_array[1],word_array[0],word_array[1],n)
-    return ans
+    if  len(word_array) != 2 :
+        return 6
+    return chaxunis_true(first_letter_array[0],first_letter_array[1],flag_array[0],flag_array[1],word_array[0],word_array[1],n)
+
+
 
 
 

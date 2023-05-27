@@ -392,7 +392,8 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
 
     def Processing(self, search_text):
         ans, sign = self.Process(search_text)
-        print(ans)
+        if sign== 6:
+            return 6,6
         clause(search_text)
         # 读取 JSON 文件
         with open('txt/result.json', 'r', encoding='utf-8') as file:
