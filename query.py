@@ -53,7 +53,7 @@ def chaxunis_true(first_letter1,first_letter2,flag1,flag2,word1,word2,n):
     uri = "neo4j+s://1d778504.databases.neo4j.io"
     driver = GraphDatabase.driver(uri, auth=("neo4j", "FN7ZTm3pYbBPQU44creN-H5P8_LvzAlIa284CpkwdIM"))
     # 查询节点属性
-    query = 'MATCH path = ('+first_letter1+':'+flag1+' {name: "'+word1+'"})-[*1..'+str(n)+']-('+first_letter2+':'+flag2+') RETURN DISTINCT path'
+    query = 'MATCH path = ('+first_letter1+':'+flag1+' {name: "'+word1+'"})-[*1..'+str(n)+']-('+first_letter2+':'+flag2+') RETURN path'
     print(query)
     ans_list = []
     with driver.session() as session:
@@ -61,8 +61,10 @@ def chaxunis_true(first_letter1,first_letter2,flag1,flag2,word1,word2,n):
         # 遍历结果
         for record in result:
             xml_string = str(record)
-            #print(xml_string)
-            xml_string =xml_string[250:]
+            print(record)
+            half = len(xml_string) // 2
+
+            xml_string =xml_string[half:]
             # 正则表达式匹配
             pattern = r"name': '(\w+).*icon': '([^']+)"
             # 发现所有的匹配

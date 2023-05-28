@@ -1,7 +1,5 @@
 import re
 def split(s):
-
-
     # 定义正则表达式模式
     pattern = r"<Record c=<Node element_id='[^']*' labels=frozenset\((.*?)\) properties=\{(.*?)\}>"
     # 从字符串中匹配出 labels 和 properties 的内容

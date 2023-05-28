@@ -90,7 +90,6 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
             print("Form submission canceled")
 
     def hero_detail(self, hero_id):
-        QMessageBox.information(self, "提示", "%s" % self.heros[hero_id], QMessageBox.Ok)
         s = "介绍一下" + self.heros[hero_id]
         sign, ans = diversion(s)
         res = []
@@ -112,7 +111,38 @@ class ChatRobot(QMainWindow, Ui_MainWindow):
 
             # 生成回答
             answer, sign = self.Processing(search_text)
+            ans = []
             print(sign)
+            # 读取 JSON 文件
+            with open('txt/result.json', 'r', encoding='utf-8') as file:
+                data = json.load(file)
+                # 提取 "flag" 和 "word" 字段的值
+                for item in data:
+                    flag = item['flag']
+                    word = item['word']
+                    if flag == "qishi":
+                        ans.append(answer[0])
+                        ans.append((answer[1]))
+                        answer = ans
+                    elif flag == "liushi":
+                        ans.append(answer[2])
+                        ans.append((answer[3]))
+                        answer = ans
+                    elif flag == "wushi":
+                        ans.append(answer[4])
+                        ans.append((answer[5]))
+                        answer = ans
+                    elif flag == "sishi":
+                        ans.append(answer[6])
+                        ans.append((answer[7]))
+                        answer = ans
+                    elif flag == "sanshi":
+                        ans.append(answer[8])
+                        answer = ans
+                    elif flag == "ershi":
+                        ans.append(answer[9])
+                        answer = ans
+
             if answer is None:
                 answer = ['']
             self.add_record("Robot", answer, True, 0, sign)

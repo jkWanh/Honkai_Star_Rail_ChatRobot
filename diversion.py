@@ -34,6 +34,7 @@ def  diversion(text):
             if ans == 6:
                 return 6,6
             return 1,ans
+    return 6, 6
 
 
 

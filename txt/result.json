@@ -4,7 +4,11 @@
         "flag": "name"
     },
     {
-        "word": "克拉拉",
-        "flag": "character"
+        "word": "一下",
+        "flag": "m"
+    },
+    {
+        "word": "外宇宙之冰",
+        "flag": "monster"
     }
 ]

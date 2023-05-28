@@ -24,7 +24,7 @@ class TestFunctions(unittest.TestCase):
     #测试query函数
     #测试clause函数
     def test_clause(self):
-        text = "请介绍一下三月七"
+        text = "三月七60级突破需要什么材料"
         clause(text)
         with open('txt/result.json', 'r', encoding='utf-8') as file:
             data = json.load(file)
@@ -43,7 +43,7 @@ class TestFunctions(unittest.TestCase):
 
     # 测试is_true函数
     def test_is_true(self):
-        text = "户籍在星穹列车的角色有哪些"
+        text = "永冬灾影掉落什么材料"
         result = is_true(text)
         print(result)
         self.assertIsNotNone(result)

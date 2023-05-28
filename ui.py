@@ -238,7 +238,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "数据库机器人"))
         self.pushButton_4.setText(_translate("MainWindow", "发送"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "ChatGPT"))
-        self.groupBox.setTitle(_translate("MainWindow", "常用英雄"))
+        self.groupBox.setTitle(_translate("MainWindow", "常用角色"))
         self.label_7.setText(_translate("MainWindow", "54749110"))
         self.label_6.setText(_translate("MainWindow", "小白"))
         self.label_8.setText(_translate("MainWindow", "55"))
